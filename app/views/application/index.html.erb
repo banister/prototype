@@ -7,10 +7,12 @@
 
 <%= javascript_tag do %>
 $(function() {
-Demo.start();
+Demo.start({
+  currentUser: gon.current_user
+});
 var websocket = new WebSocket("ws://127.0.0.1:3001/");
 websocket.onmessage = function(event) {
-  $("#main-region").append(event.data) ;
+$("#main-region").append(event.data) ;
 };
 });
 <% end %>

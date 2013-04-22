@@ -1,5 +1,6 @@
+<% console.log @ %>
 <div id="footer">
   <div class="container">
-    <p class="muted">John Mair - Horsewhisperer</p>
+    <p class="muted">John Mair - Horsewhisperer <%= @full_name %></p>
   </div>
 </div>

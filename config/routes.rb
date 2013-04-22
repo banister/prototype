@@ -1,4 +1,5 @@
 Prototype::Application.routes.draw do
+  resources :users
   root to: "application#index"
 
   # The priority is based upon order of creation:
