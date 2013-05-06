@@ -8,7 +8,10 @@ gem 'rails', '3.2.13'
 gem 'sqlite3'
 gem 'pry-plus'
 gem 'pry-rails'
+gem 'pry-theme'
 gem 'thin'
+gem 'better_errors'
+gem 'binding_of_caller'
 gem 'eventmachine'
 gem 'em-websocket'
 gem 'rabl'
@@ -32,6 +35,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'kendoui-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

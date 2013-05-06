@@ -7,6 +7,7 @@
         App.addRegions
                 headerRegion: "#header-region"
                 mainRegion: "#main-region"
+                sidebarRegion: "#sidebar-region"
                 footerRegion: "#footer-region"
 
         App.on "initialize:before", (options)->
@@ -18,6 +19,7 @@
         App.addInitializer ->
                 App.module("HeaderApp").start()
                 App.module("FooterApp").start()
+                App.module("ModulespacesApp").start()
 
         App.on "initialize:after", ->
                 if Backbone.history

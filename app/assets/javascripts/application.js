@@ -15,6 +15,7 @@
 //= require lib/backbone
 //= require lib/marionette
 //= require js-routes
+//= require kendo/kendo.web.min
 //= require_tree ./backbone/config
 //= require backbone/app
 //= require_tree ./backbone/views

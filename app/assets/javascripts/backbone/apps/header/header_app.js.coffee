@@ -1,9 +1,10 @@
 @Demo.module "HeaderApp", (HeaderApp, App, Backbone, Marionette, $, _) ->
-        @startWithParent = false
 
-        API =
-                listHeader: ->
-                        HeaderApp.List.Controller.listHeader()
+  @startWithParent = false
 
-        HeaderApp.on "start", ->
-                API.listHeader()
+  API =
+    listHeader: ->
+      HeaderApp.List.Controller.listHeader()
+
+  HeaderApp.on "start", ->
+    API.listHeader()
