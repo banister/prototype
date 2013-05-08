@@ -4,7 +4,7 @@
 
         App.rootRoute = Routes.users_path()
         App.socketURL = "ws://127.0.0.1:3001/"
-        App.SocketAdapter = new SocketAdapter(App.vent, App.socketURL)
+        App.SocketAdapter = new SocketAdapter(App.vent, App.reqres, App.socketURL)
 
         App.addRegions
                 headerRegion: "#header-region"

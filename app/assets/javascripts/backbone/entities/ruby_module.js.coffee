@@ -26,12 +26,17 @@
         class Entities.RubyModules extends Entities.Model
 
         App.reqres.setHandler "ruby_module:entities", ->
+          # json = App.request "socket:get:ruby:modules"
           new Entities.RubyModules
             allModules:
               [
                 { text: "Furniture"
                 items: [
-                  { text: "Tables & Chairs" }
+                  { text: "Tables & Chairs"
+                  items: [
+                    { text: "bug" }
+                    { text: "pig" }
+                  ] }
                   { text: "Sofas" }
                   { text: "Occasional Furniture" }
                 ] },
