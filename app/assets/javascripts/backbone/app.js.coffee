@@ -1,8 +1,10 @@
-@Demo = do (Backbone, Marionette) ->
+@Demo = do (Backbone, Marionette, SocketAdapter) ->
 
         App = new Marionette.Application
 
         App.rootRoute = Routes.users_path()
+        App.socketURL = "ws://127.0.0.1:3001/"
+        App.SocketAdapter = new SocketAdapter(App.vent, App.socketURL)
 
         App.addRegions
                 headerRegion: "#header-region"
@@ -25,5 +27,10 @@
                 if Backbone.history
                         Backbone.history.start()
                         @navigate(@rootRoute, trigger: true) if @getCurrentRoute() is ""
+
+
+        App.vent.on "socket:value", (data) ->
+          console.log data
+          $("#socket-region").html(data)
 
         App

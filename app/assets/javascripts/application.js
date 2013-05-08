@@ -14,6 +14,7 @@
 //= require lib/underscore
 //= require lib/backbone
 //= require lib/marionette
+//= require lib/socket_adapter
 //= require js-routes
 //= require kendo/kendo.web.min
 //= require_tree ./backbone/config

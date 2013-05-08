@@ -15,18 +15,17 @@
     </div>
   </div>
 
+  <!-- Just testing websockets -->
+  <div id="socket-region"></div>
+
   <div id="push"></div>
 </div>
 <div id="footer-region"></div>
 
 <%= javascript_tag do %>
-$(function() {
-Demo.start({
-currentUser: gon.current_user
-});
-var websocket = new WebSocket("ws://127.0.0.1:3001/");
-websocket.onmessage = function(event) {
-$("#main-region").append(event.data) ;
-};
-});
+  $(function() {
+    Demo.start({
+      currentUser: gon.current_user
+    });
+  });
 <% end %>

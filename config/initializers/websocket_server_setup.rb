@@ -4,7 +4,9 @@ EM.next_tick do
 
   EM::WebSocket.start(:host => '0.0.0.0', :port => 3001) do |ws|
     ws.onopen do
-      ws.send "web sockets are working!"
+      ws.send JSON.dump({ "value" => "web sockets are working!",
+                          "type" => "result"
+                        })
 
       subscriber_id = @channel.subscribe do |msg|
         ws.send msg
