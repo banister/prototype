@@ -33,7 +33,6 @@ EM.next_tick do
         o = JSON.load(msg)
         json = module_hash_for(Object)
         puts JSON.dump(json)
-        binding.pry
         case o["type"]
         when "module_space"
 

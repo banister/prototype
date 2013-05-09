@@ -19,8 +19,6 @@ class @SocketAdapter
         console.log "trying to publish"
         console.log message
         @publish("socket:value", message.value)
-      when "module_space"
-
 
   _setup_listeners: ->
     @reqres.setHandler "socket:get:ruby_modules", =>
