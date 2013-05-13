@@ -29,18 +29,22 @@ EM.next_tick do
 
     ws.onmessage do |msg|
 
-      Pry.rescue do
-        o = JSON.load(msg)
-        json = module_hash_for(Object)
-        puts JSON.dump(json)
-        case o["type"]
-        when "module_space"
+      o = JSON.load(msg)
+      case o["type"]
+      when "module_space"
 
-          ws.send JSON.dump({ "value" => json,
-                              "type" => "module_space"
-                            })
+        EM.defer do
+          json = module_hash_for(Object)
+
+          EM.next_tick do
+            ws.send JSON.dump({ "value" => json,
+                                "type" => "module_space",
+                                "id" => o["id"]
+                              })
+          end
         end
       end
+
     end
 
     ws.onclose do

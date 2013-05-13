@@ -13,6 +13,7 @@
 //= require jquery
 //= require lib/underscore
 //= require lib/backbone
+//= require lib/bacon
 //= require lib/marionette
 //= require lib/socket_adapter
 //= require js-routes

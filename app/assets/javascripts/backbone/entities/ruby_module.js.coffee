@@ -1,34 +1,27 @@
 @Demo.module "Entities", (Entities, App, Backbone, Marionette, $, _) ->
 
-        # class Entities.User extends Entities.Model
+  class Entities.RubyModule extends Entities.Model
 
-        # class Entities.RubyModuleCollection extends Entities.Collection
-        #         model: Entities.User
-        #         url: Routes.users_path()
+  class Entities.RubyModules extends Entities.Collection
+    model: Entities.RubyModule
 
 
-        # API =
-        #         setCurrentUser: (currentUser) ->
-        #                 new Entities.User currentUser
+  #    initialize: ->
+  #      if Array.isArray(@get('items'))
+  #        @set items: new RubyModules(@get('items'))
 
-        #         getUserEntities: ->
-        #                 defer = $.Deferred()
-        #                 users = new Entities.UsersCollection
-        #                 users.fetch
-        #                         reset: true
-        #                         success: ->
-        #                                 defer.resolve(users)
-        #                 defer.promise()
+  #    # @from
 
-        # App.reqres.setHandler "set:current:user", (currentUser) ->
-        #         API.setCurrentUser currentUser
 
-        class Entities.RubyModules extends Entities.Model
+  App.reqres.setHandler "ruby_module:entities", ->
+    promise = $.Deferred()
+    App.request("socket:get:ruby_modules")?.then (value) ->
+      promise.resolve(value)
 
-        App.reqres.setHandler "ruby_module:entities", ->
-          # json = App.request "socket:get:ruby:modules"
-          new Entities.RubyModules
-            allModules:
+    promise.promise()
+
+    new Entities.RubyModules
+      allModules:
               [
                 { text: "Furniture"
                 items: [
