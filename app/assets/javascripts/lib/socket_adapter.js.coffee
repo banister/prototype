@@ -15,11 +15,12 @@ class @SocketAdapter
     console.log event
     message = JSON.parse(event.data)
     console.log message
-    # window.msg = message
+    window.msg = message
 
     promise = @promises[message.id]
     if promise?
       promise.resolve(message.value)
+      console.log "should have resolved promise"
       delete @promises[message.id]
 
     switch message.type
@@ -29,15 +30,25 @@ class @SocketAdapter
       when "module_space"
         @promises[message.id]?.resolve(message.value)
 
+  _send_data: (json, id) =>
+    @websocket.send json
+    promise = $.Deferred()
+    @promises[id] = promise
+    promise.promise()
+
   _setup_listeners: ->
-    @reqres.setHandler "socket:get:ruby_modules", =>
+    @reqres.setHandler "communicator:get:ruby_modules", =>
       id = Date.now()
       json = JSON.stringify
         type: "module_space"
         id: id
 
-      if @websocket.readyState == 1
-        @websocket.send json
-        promise = $.Deferred()
-        @promises[id] = promise
-        promise.promise()
+      if @websocket.readyState == 0
+        console.log "doing the onopen thing"
+        o = $.Deferred()
+        @websocket.onopen = =>
+          @_send_data(json, id).then (v)-> o.resolve(v)
+
+        o
+      else
+        @_send_data(json, id)

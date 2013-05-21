@@ -1,15 +1,24 @@
 def module_hash_for(mod)
-  k = mod.constants(false).each_with_object({}) do |c, h|
+  k = mod.constants(false).each_with_object([]) do |c, a|
     if (o = mod.const_get(c)).is_a?(Module) then
       begin
-        h[c] = o.constants(false).any? { |c| o.const_get(c).is_a? Module }
+        a << {
+              :name => c,
+              :stub => true,
+              :has_children => o.constants(false).any? { |c| o.const_get(c).is_a?(Module) }
+        }
       rescue Pry::RescuableException
         next
       end
     end
   end
 
-  k
+  {
+    :name => mod.name,
+    :stub => false,
+    :has_children => k.any?,
+    :children => k
+  }
 end
 
 EM.next_tick do
@@ -35,7 +44,6 @@ EM.next_tick do
 
         EM.defer do
           json = module_hash_for(Object)
-
           EM.next_tick do
             ws.send JSON.dump({ "value" => json,
                                 "type" => "module_space",

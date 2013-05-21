@@ -3,9 +3,11 @@
   List.Controller =
     listModules: ->
       fetching_ruby_modules = App.request "ruby_module:entities"
-      modulesView = @getModulesView fetching_ruby_modules
-      App.sidebarRegion.show modulesView
+
+      fetching_ruby_modules.then (value) =>
+        modulesView = @getModulesView value.get('children')
+        App.sidebarRegion.show modulesView
 
     getModulesView: (ruby_modules) ->
       new List.RubyModules
-        model: ruby_modules
+        collection: ruby_modules
