@@ -5,9 +5,9 @@
       fetching_ruby_modules = App.request "ruby_module:entities"
 
       fetching_ruby_modules.then (value) =>
-        modulesView = @getModulesView value.get('children')
+        modulesView = @getModulesView value
         App.sidebarRegion.show modulesView
 
     getModulesView: (ruby_modules) ->
       new List.RubyModules
-        collection: ruby_modules
+        root_model: ruby_modules

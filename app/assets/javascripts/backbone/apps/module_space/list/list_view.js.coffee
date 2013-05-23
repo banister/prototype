@@ -1,20 +1,29 @@
 @Demo.module "ModulespacesApp.List", (List, App, Backbone, Marionette, $, _) ->
 
   class List.RubyModules extends App.Views.ItemView
+
+    initialize: (options)->
+      @model = @rootModel = options.root_model
+
     template: "module_space/list/templates/modules"
 
     onShow: ->
-      @$("#treeview").kendoTreeView
-        dataSource: new kendo.data.HierarchicalDataSource
+      dataSource = new kendo.data.HierarchicalDataSource
           transport:
             read: (options) =>
-              v = _.first(@collection.toJSON(), 100)
-              console.log "yo yo yo outputting model"
-              console.log(v)
-              # debugger
-              console.log "should have outputted model"
-              # debugger
-              options.success _.sortBy(@collection.toJSON(), (v) -> v.name)
+              debugger
+              if options.data.fullName?
+                @rootModel.findModuleByFullName(options.data.fullName)
+              else
+                options.success _.sortBy(@rootModel.children().toJSON(), (v) -> v.name)
+
+          schema:
+            model:
+              id: "fullName"
+
+      window.dataSource = dataSource
+      @$("#treeview").kendoTreeView
+        dataSource: dataSource
                 # [
                 #   { text: "Furniture", items: [
                 #     { text: "Tables & Chairs" },
@@ -32,8 +41,3 @@
 #              options.success @model.toJSON()
 
         dataTextField:["name"]
-
-        schema:
-          model:
-            hasChildren: "has_children"
-            text: "name"

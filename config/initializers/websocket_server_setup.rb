@@ -3,9 +3,10 @@ def module_hash_for(mod)
     if (o = mod.const_get(c)).is_a?(Module) then
       begin
         a << {
-              :name => c,
-              :stub => true,
-              :has_children => o.constants(false).any? { |c| o.const_get(c).is_a?(Module) }
+          :name => c,
+          :fullName => o.name.to_s,
+          :stub => true,
+          :hasChildren => o.constants(false).any? { |c| o.const_get(c).is_a?(Module) }
         }
       rescue Pry::RescuableException
         next
@@ -16,7 +17,7 @@ def module_hash_for(mod)
   {
     :name => mod.name,
     :stub => false,
-    :has_children => k.any?,
+    :hasChildren => k.any?,
     :children => k
   }
 end
