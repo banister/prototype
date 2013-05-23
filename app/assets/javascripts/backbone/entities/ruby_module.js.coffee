@@ -5,8 +5,20 @@
       @fullName = @get('fullName')
       @set id: @fullName
 
+      @processChildElements()
+
+    processChildElements: ->
       if Array.isArray(@get('children'))
-        @set children: new Entities.RubyModules(@get('children'))
+            @set children: new Entities.RubyModules(@get('children'))
+
+    sync: (method, model, options) ->
+      if method == "read"
+        App.request("communicator:get:ruby_modules", model.id).then (value) =>
+          options.success(value)
+          @processChildElements()
+          @
+      else
+        Backbone.sync method, model, options
 
     findModuleByFullName: (fullName) ->
       if @fullName == fullName
@@ -19,7 +31,6 @@
     fullNameAsArray: -> @_splitModuleName(@fullName)
 
     findModuleByFullNameInChildren: (fullName) ->
-      debugger
       return undefined if !@get('children')
 
       localSplit =  @fullNameAsArray()
@@ -38,9 +49,9 @@
   class Entities.RubyModules extends Entities.Collection
     model: Entities.RubyModule
 
-  App.reqres.setHandler "ruby_module:entities", ->
+  App.reqres.setHandler "ruby_module:entities", (moduleName) ->
     promise = $.Deferred()
-    App.request("communicator:get:ruby_modules")?.then (value) ->
+    App.request("communicator:get:ruby_modules", moduleName)?.then (value) ->
       promise.resolve new Entities.RubyModule(value)
 
     promise.promise()

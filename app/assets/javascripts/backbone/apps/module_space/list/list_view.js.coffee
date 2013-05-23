@@ -11,9 +11,10 @@
       dataSource = new kendo.data.HierarchicalDataSource
           transport:
             read: (options) =>
-              debugger
               if options.data.fullName?
-                @rootModel.findModuleByFullName(options.data.fullName)
+                childNode = @rootModel.findModuleByFullName(options.data.fullName)
+                childNode.fetch().then (value)->
+                  options.success(_.sortBy(value.children().toJSON(), (v) -> v.name))
               else
                 options.success _.sortBy(@rootModel.children().toJSON(), (v) -> v.name)
 
@@ -24,20 +25,4 @@
       window.dataSource = dataSource
       @$("#treeview").kendoTreeView
         dataSource: dataSource
-                # [
-                #   { text: "Furniture", items: [
-                #     { text: "Tables & Chairs" },
-                #     { text: "Sofas" },
-                #     { text: "Occasional Furniture" }
-                #   ] },
-                #   { text: "Decor", items: [
-                #     { text: "Bed Linen" },
-                #     { text: "Curtains & Blinds" },
-                #     { text: "Carpets" }
-                #   ] }
-                # ])
-
-
-#              options.success @model.toJSON()
-
         dataTextField:["name"]

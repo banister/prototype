@@ -27,7 +27,7 @@ class @SocketAdapter
       when "result"
         @promises[message.id]?.resolve(message.value)
         # @publish("socket:value", message.value)
-      when "module_space"
+      when "moduleSpace"
         @promises[message.id]?.resolve(message.value)
 
   _send_data: (json, id) =>
@@ -37,10 +37,11 @@ class @SocketAdapter
     promise.promise()
 
   _setup_listeners: ->
-    @reqres.setHandler "communicator:get:ruby_modules", =>
+    @reqres.setHandler "communicator:get:ruby_modules", (moduleName) =>
       id = Date.now()
       json = JSON.stringify
-        type: "module_space"
+        type: "moduleSpace"
+        value: moduleName
         id: id
 
       if @websocket.readyState == 0

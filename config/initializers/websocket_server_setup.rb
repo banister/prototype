@@ -1,4 +1,5 @@
-def module_hash_for(mod)
+def module_hash_for(mod_string)
+  mod = eval(mod_string)
   k = mod.constants(false).each_with_object([]) do |c, a|
     if (o = mod.const_get(c)).is_a?(Module) then
       begin
@@ -41,13 +42,13 @@ EM.next_tick do
 
       o = JSON.load(msg)
       case o["type"]
-      when "module_space"
+      when "moduleSpace"
 
         EM.defer do
-          json = module_hash_for(Object)
+          json = module_hash_for(o["value"])
           EM.next_tick do
             ws.send JSON.dump({ "value" => json,
-                                "type" => "module_space",
+                                "type" => "moduleSpace",
                                 "id" => o["id"]
                               })
           end
