@@ -8,8 +8,8 @@
       @processChildElements()
 
     processChildElements: ->
-      if Array.isArray(@get('children'))
-            @set children: new Entities.RubyModules(@get('children'))
+      if Array.isArray @get('children')
+        @set children: new Entities.RubyModules(@get('children'))
 
     sync: (method, model, options) ->
       if method == "read"

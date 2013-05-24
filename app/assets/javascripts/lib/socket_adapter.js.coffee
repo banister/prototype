@@ -1,7 +1,5 @@
 class @SocketAdapter
   constructor: (@aggregator, @reqres, @socket_url) ->
-    console.log "outputting socket url"
-    console.log @socket_url
     @websocket = new WebSocket(@socket_url)
     @websocket.onmessage = @_message_processor
     @promises = {}
@@ -11,22 +9,16 @@ class @SocketAdapter
     @aggregator.trigger args...
 
   _message_processor: (event) =>
-    console.log "got a stupid websocket message"
-    console.log event
     message = JSON.parse(event.data)
-    console.log message
-    window.msg = message
 
     promise = @promises[message.id]
     if promise?
       promise.resolve(message.value)
-      console.log "should have resolved promise"
       delete @promises[message.id]
 
     switch message.type
       when "result"
         @promises[message.id]?.resolve(message.value)
-        # @publish("socket:value", message.value)
       when "moduleSpace"
         @promises[message.id]?.resolve(message.value)
 
@@ -45,11 +37,10 @@ class @SocketAdapter
         id: id
 
       if @websocket.readyState == 0
-        console.log "doing the onopen thing"
-        o = $.Deferred()
+        dfd = $.Deferred()
         @websocket.onopen = =>
-          @_send_data(json, id).then (v)-> o.resolve(v)
+          @_send_data(json, id).then (v)-> dfd.resolve(v)
 
-        o
+        dfd
       else
         @_send_data(json, id)
