@@ -51,7 +51,7 @@
 
   App.reqres.setHandler "ruby_module:entities", (moduleName) ->
     promise = $.Deferred()
-    App.request("communicator:get:ruby_modules", moduleName)?.then (value) ->
+    App.request("communicator:get:ruby_modules", moduleName).then (value) ->
       promise.resolve new Entities.RubyModule(value)
 
     promise.promise()
