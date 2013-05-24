@@ -9,11 +9,13 @@
       App.mainRegion.show @layout
 
     showEditors: ->
-      editorsView = @getEditorsView()
+      collection = new App.Entities.RubyModules([{}, {}, {}])
+      editorsView = @getEditorsView(collection)
       @layout.editorsRegion.show(editorsView)
 
-    getEditorsView: ->
+    getEditorsView: (collection)->
       new List.Editors
+        collection: collection
 
     getLayoutView: ->
       new List.Layout

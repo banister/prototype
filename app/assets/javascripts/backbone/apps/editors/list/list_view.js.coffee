@@ -4,8 +4,8 @@
                 template: "editors/list/templates/list_layout"
 
                 regions:
-                        panelRegion: "#panel-region"
-                        editorsRegion: "#editors-region"
+                  panelRegion: "#panel-region"
+                  editorsRegion: "#editors-region"
 
         class List.Editor extends App.Views.ItemView
                 template: "editors/list/templates/_editor"
