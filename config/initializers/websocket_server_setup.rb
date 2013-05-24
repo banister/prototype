@@ -45,7 +45,12 @@ EM.next_tick do
       when "moduleSpace"
 
         EM.defer do
-          json = module_hash_for(o["value"])
+
+          json = nil
+          Pry.rescue do
+            json = module_hash_for(o["value"])
+          end
+
           EM.next_tick do
             ws.send JSON.dump({ "value" => json,
                                 "type" => "moduleSpace",
