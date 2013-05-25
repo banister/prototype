@@ -21,9 +21,14 @@
           schema:
             model:
               id: "fullName"
+              fullName: "fullName"
 
-      window.dataSource = dataSource
       @$("#treeview").kendoTreeView
         dragAndDrop: true
         dataSource: dataSource
         dataTextField:["name"]
+
+      treeView = @$("#treeview").data("kendoTreeView")
+      treeView.bind "select", (e)->
+        console.log treeView.dataItem("##{e.node.id}")
+        window.blah = e.node
