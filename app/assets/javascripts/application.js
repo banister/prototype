@@ -16,6 +16,7 @@
 //= require lib/backbone
 //= require lib/bacon
 //= require lib/marionette
+//= require_tree ./lib/ace
 //= require lib/socket_adapter
 //= require js-routes
 //= require kendo/kendo.web.min

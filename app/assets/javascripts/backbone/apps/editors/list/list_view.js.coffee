@@ -11,6 +11,15 @@
                 template: "editors/list/templates/_editor"
                 className: "pry-editor"
 
+                onShow: ->
+                  debugger
+                  console.log "for the girls"
+                  domElement = @.$(".editor1").get(0)
+                  console.log(domElement)
+                  editor = ace.edit(domElement)
+                  editor.setTheme("ace/theme/tomorrow_night")
+                  editor.getSession().setMode("ace/mode/ruby")
+
         class List.Empty extends App.Views.ItemView
                 template: "editors/list/templates/_empty"
                 className: "pry-editor"

@@ -1,4 +1,7 @@
-hello<br>
-<textarea>
-  Source code goes here
-</textarea>
+<div class="editor1">
+class Hello
+  def hello
+    puts "hello world!"
+  end
+end
+</div>
