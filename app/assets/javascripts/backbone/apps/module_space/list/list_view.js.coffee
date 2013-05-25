@@ -24,5 +24,6 @@
 
       window.dataSource = dataSource
       @$("#treeview").kendoTreeView
+        dragAndDrop: true
         dataSource: dataSource
         dataTextField:["name"]

@@ -9,12 +9,10 @@
 
         class List.Editor extends App.Views.ItemView
                 template: "editors/list/templates/_editor"
-                className: "pry-editor"
+                className: "pry-editor-container"
 
                 onShow: ->
-                  debugger
-                  console.log "for the girls"
-                  domElement = @.$(".editor1").get(0)
+                  domElement = @.$(".pry-editor").get(0)
                   console.log(domElement)
                   editor = ace.edit(domElement)
                   editor.setTheme("ace/theme/tomorrow_night")
@@ -22,7 +20,7 @@
 
         class List.Empty extends App.Views.ItemView
                 template: "editors/list/templates/_empty"
-                className: "pry-editor"
+                className: "pry-editor-container"
 
         class List.Loading extends App.Views.ItemView
                 template: "editors/list/templates/_loading"

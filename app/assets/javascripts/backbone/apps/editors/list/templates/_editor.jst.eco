@@ -1,4 +1,4 @@
-<div class="editor1">
+<div class="pry-editor">
 class Hello
   def hello
     puts "hello world!"
