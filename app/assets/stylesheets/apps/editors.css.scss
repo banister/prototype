@@ -1,11 +1,20 @@
 .pry-editor-container {
   margin: 0px;
-  width: 400px;
+  /* width: 400px; */
   margin: 0px 16px 32px;
-  min-height: 400px;
-  background: #eee;
+  /* min-height: 400px; */
+  background: #f00;
   display: inline-block;
-
     .pry-editor {
-      height: 380px;
+      /* margin: 5px; */
+      height: 100%;
+      border-radius:8px;
     }}
+
+      .editor-header {
+
+        }
+
+#editors {
+  background: #333
+  }

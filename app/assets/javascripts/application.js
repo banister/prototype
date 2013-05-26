@@ -13,6 +13,7 @@
 //= require jquery
 //= require lib/underscore
 //= require lib/underscore.string.min
+//= require lib/jquery.gridster.min
 //= require lib/backbone
 //= require lib/bacon
 //= require lib/marionette

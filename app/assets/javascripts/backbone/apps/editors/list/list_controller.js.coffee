@@ -9,7 +9,7 @@
       App.mainRegion.show @layout
 
     showEditors: ->
-      collection = new App.Entities.RubyModules([{}, {}, {}, {}, {}, {}, {}])
+      collection = new App.Entities.RubyModules([{}, {}, {}])
       editorsView = @getEditorsView(collection)
       @layout.editorsRegion.show(editorsView)
 
