@@ -11,6 +11,11 @@
                 template: "editors/list/templates/_editor"
                 className: "pry-editor-container"
                 tagName: "li"
+                attributes:
+                  "data-row": "1"
+                  "data-col": "1"
+                  "data-sizex": "1"
+                  "data-sizey": "1"
 
                 onShow: ->
                   domElement = @$(".pry-editor").get(0)
@@ -19,21 +24,10 @@
                   editor.setTheme("ace/theme/tomorrow_night")
                   editor.getSession().setMode("ace/mode/ruby")
 
-                  @$el.attr('data-row', Math.floor(Math.random() * 3))
-                  @$el.attr('data-col', Math.floor(Math.random() * 3))
-                  @$el.attr('data-sizex', 1)
-                  @$el.attr('data-sizey', 1)
-
         class List.Empty extends App.Views.ItemView
                 template: "editors/list/templates/_empty"
                 className: "pry-editor-container"
                 tagName: "li"
-
-                onShow: ->
-                  # @$el.attr('data-row', 1)
-                  # @$el.attr('data-col', 1)
-                  # @$el.attr('data-sizex', 2)
-                  # @$el.attr('data-sizey', 2)
 
         class List.Loading extends App.Views.ItemView
                 template: "editors/list/templates/_loading"
@@ -47,11 +41,10 @@
                 onShow: ->
                   $("#editors").gridster
                     widget_margins: [10, 10]
-                    extra_rows: 6
+                    extra_rows: 3
                     extra_cols: 3
-                    avoid_overlapped_widgets: true
                     draggable:
                       handle: ".editor-header"
 
-                    # widget_base_dimensions: p[200, 400]
+                    widget_base_dimensions: [450, 300]
                     autogenerate_stylesheet: true
