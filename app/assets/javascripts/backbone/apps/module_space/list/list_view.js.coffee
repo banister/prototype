@@ -27,8 +27,6 @@
         dragAndDrop: true
         dataSource: dataSource
         dataTextField:["name"]
-
-      treeView = @$("#treeview").data("kendoTreeView")
-      treeView.bind "select", (e)->
-        console.log treeView.dataItem("##{e.node.id}")
-        window.blah = e.node
+        select: (e) ->
+          console.log @dataItem(e.node)
+          window.blah = e.node
