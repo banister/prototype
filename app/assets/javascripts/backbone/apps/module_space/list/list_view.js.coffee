@@ -28,5 +28,5 @@
         dataSource: dataSource
         dataTextField:["name"]
         select: (e) ->
-          console.log @dataItem(e.node)
-          window.blah = e.node
+          modelData = @dataItem(e.node)
+          App.vent.trigger "add:code:model:to:editor:collection", modelData

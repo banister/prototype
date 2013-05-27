@@ -22,25 +22,42 @@ class @SocketAdapter
       when "moduleSpace"
         @promises[message.id]?.resolve(message.value)
 
-  _send_data: (json, id) =>
-    @websocket.send json
+  _send_data: (json) =>
+    @websocket.send JSON.stringify(json)
     promise = $.Deferred()
-    @promises[id] = promise
+    @promises[json.id] = promise
     promise.promise()
 
-  _setup_listeners: ->
+  _generateId: ->
+    Date.now()
+
+  _buildJson: (info) ->
+    id = @_generateId()
+    json =
+      type: info.type
+      value: info.value
+      id: id
+
+  _buildPromise: (json) ->
+    if @websocket.readyState == 0
+      dfd = $.Deferred()
+      @websocket.onopen = =>
+        @_send_data(json).then (v)-> dfd.resolve(v)
+
+      dfd
+    else
+      @_send_data(json)
+
+  _setupRubyModulesListener: ->
     @reqres.setHandler "communicator:get:ruby_modules", (moduleName) =>
-      id = Date.now()
-      json = JSON.stringify
-        type: "moduleSpace"
-        value: moduleName
-        id: id
+      json = @_buildJson type: "moduleSpace", value: moduleName
+      @_buildPromise(json)
 
-      if @websocket.readyState == 0
-        dfd = $.Deferred()
-        @websocket.onopen = =>
-          @_send_data(json, id).then (v)-> dfd.resolve(v)
+  _setupCodeModelListener: ->
+    @reqres.setHandler "communicator:get:code_model", (codeObjectName) =>
+      json = @_buildJson type: "codeModel", value: codeObjectName
+      @_buildPromise(json)
 
-        dfd
-      else
-        @_send_data(json, id)
+  _setup_listeners: ->
+    @_setupRubyModulesListener()
+    @_setupCodeModelListener()
