@@ -16,12 +16,6 @@ class @SocketAdapter
       promise.resolve(message.value)
       delete @promises[message.id]
 
-    switch message.type
-      when "result"
-        @promises[message.id]?.resolve(message.value)
-      when "moduleSpace"
-        @promises[message.id]?.resolve(message.value)
-
   _send_data: (json) =>
     @websocket.send JSON.stringify(json)
     promise = $.Deferred()
