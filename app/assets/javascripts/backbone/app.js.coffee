@@ -2,7 +2,7 @@
 
         App = new Marionette.Application
 
-        App.rootRoute = Routes.users_path()
+        App.rootRoute = "/editors"
         App.socketURL = "ws://127.0.0.1:3001/"
         App.SocketAdapter = new SocketAdapter(App.vent, App.reqres, App.socketURL)
 
