@@ -29,4 +29,4 @@
         dataTextField:["name"]
         select: (e) ->
           modelData = @dataItem(e.node)
-          App.vent.trigger "add:code:model:to:editor:collection", modelData
+          App.vent.trigger "add:code:model:to:editor:collection", modelData.fullName

@@ -2,9 +2,5 @@
  xxx
 </div>
 <div class="pry-editor">
-class Hello
-  def hello
-    puts "hello world!"
-  end
-end
+<%= @code %>
 </div>

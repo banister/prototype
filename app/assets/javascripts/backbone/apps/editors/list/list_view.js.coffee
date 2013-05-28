@@ -38,6 +38,9 @@
                 emptyView: List.Empty
                 itemViewContainer: "#editors"
 
+                appendHtml: (cv, iv)->
+                  $(cv.itemViewContainer).data('gridster')?.add_widget(iv.el, 1, 1)
+
                 onShow: ->
                   $("#editors").gridster
                     widget_margins: [10, 10]
