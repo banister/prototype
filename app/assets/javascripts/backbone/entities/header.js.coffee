@@ -8,9 +8,9 @@
         API =
                 getHeaders: ->
                         new Backbone.Collection [
-                                { name: "Stats" }
-                                { name: "Android" }
-                                { name: "Applications" }
+                                # { name: "Foo" }
+                                # { name: "Bar" }
+                                # { name: "Baz" }
                         ]
 
 

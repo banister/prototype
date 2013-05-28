@@ -1,11 +1,16 @@
 <div id="header" class="navbar">
   <div class="navbar-inner">
+    <img src="assets/pry_logo.png" alt="pry_logo"
+         class="pull-right" width="70" height="70" id="pry_logo">
+
     <div class="container">
       <div class="row">
         <div class="pull-left">
-          <span class="brand">Privacy Pig</span>
         </div>
         <ul class="nav pull-right">
+          <li>
+
+          </li>
         </ul>
       </div>
     </div>
