@@ -13,7 +13,9 @@
       controller: API
 
   App.commands.setHandler "editors:add:code:model", (model) ->
-    console.log "got new code model in EditorsApp:", model
     EditorsApp.EditorModels.add model
+
+  App.commands.setHandler "editors:remove:code:model", (model) ->
+    EditorsApp.EditorModels.remove model
 
   EditorsApp.EditorModels = new App.Entities.CodeModels

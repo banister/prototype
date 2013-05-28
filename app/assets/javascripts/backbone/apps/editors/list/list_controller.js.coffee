@@ -10,8 +10,16 @@
 
     showEditors: ->
       collection = App.EditorsApp.EditorModels
-      # collection = new App.Entities.RubyModules([{}, {}, {}])
       editorsView = @getEditorsView(collection)
+
+      editorsView.on "itemview:clicked:close", (e) ->
+        App.execute "editors:remove:code:model", e.model
+
+      editorsView.on "itemview:gridster:remove:widget", (e) ->
+        console.log "trying to remove widget from gridster"
+        $(@itemViewContainer).data("gridster").remove_widget(e.$el)
+
+
       @layout.editorsRegion.show(editorsView)
 
     getEditorsView: (collection)->

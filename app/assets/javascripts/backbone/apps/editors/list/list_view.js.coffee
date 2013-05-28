@@ -17,6 +17,15 @@
                   "data-sizex": "1"
                   "data-sizey": "1"
 
+                triggers:
+                  "click .editor-header button": "clicked:close"
+
+                onBeforeClose: =>
+                  console.log "should be firing gridster:remove:widget event"
+                  App.vent.trigger("gridster:remove:widget", @)
+                  # @triggerMethod("gridster:remove:widget", @)
+                  # @stopListening()
+
                 onShow: ->
                   domElement = @$(".pry-editor").get(0)
                   console.log(domElement)
@@ -35,17 +44,21 @@
         class List.Editors extends App.Views.CompositeView
                 template: "editors/list/templates/_editors"
                 itemView: List.Editor
-                emptyView: List.Empty
+                # emptyView: List.Empty
                 itemViewContainer: "#editors"
+
+                initialize: ->
+                  App.vent.on "gridster:remove:widget", (e)=>
+                    console.log "blergh"
+                    $(@itemViewContainer).data("gridster").remove_widget(e.$el)
+                    e.$el.remove()
 
                 appendHtml: (cv, iv)->
                   $(cv.itemViewContainer).data('gridster')?.add_widget(iv.el, 1, 1)
 
                 onShow: ->
-                  $("#editors").gridster
+                  $(@itemViewContainer).gridster
                     widget_margins: [10, 10]
-                    extra_rows: 3
-                    extra_cols: 3
                     draggable:
                       handle: ".editor-header"
 
