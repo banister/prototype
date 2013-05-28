@@ -1,27 +1,6 @@
-def module_hash_for(mod_string)
-  mod = eval(mod_string)
-  k = mod.constants(false).each_with_object([]) do |c, a|
-    if (o = mod.const_get(c)).is_a?(Module) then
-      begin
-        a << {
-          :name => c,
-          :fullName => o.name.to_s,
-          :stub => true,
-          :hasChildren => o.constants(false).any? { |c| o.const_get(c).is_a?(Module) }
-        }
-      rescue Pry::RescuableException
-        next
-      end
-    end
-  end
+require_relative "pry_protocol"
 
-  {
-    :name => mod.name,
-    :stub => false,
-    :hasChildren => k.any?,
-    :children => k
-  }
-end
+pry_prot = PryProtocol.new
 
 EM.next_tick do
   @channel = EM::Channel.new
@@ -42,14 +21,19 @@ EM.next_tick do
 
       o = JSON.load(msg)
       case o["type"]
+      when  "codeModel"
+        json = pry_prot.code_info_for(o["value"])
+        ws.send JSON.dump({
+                            "value" => json,
+                            "type" => "codeModel",
+                            "id" => o["id"]
+                          })
       when "moduleSpace"
 
         EM.defer do
 
           json = nil
-          Pry.rescue do
-            json = module_hash_for(o["value"])
-          end
+          json = pry_prot.module_hash_for(o["value"])
 
           EM.next_tick do
             ws.send JSON.dump({ "value" => json,
