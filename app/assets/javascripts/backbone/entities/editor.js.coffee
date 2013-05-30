@@ -2,6 +2,10 @@
 
   # This is the model that backs an Editor view
   class Entities.CodeModel extends Entities.Model
+    initialize: ->
+      # just set the id to the cid until we come up
+      # with something more sensible
+      @set id: @cid
 
   class Entities.CodeModels extends Entities.Collection
     model: Entities.CodeModel

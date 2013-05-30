@@ -1,0 +1,8 @@
+<div class="editor-header">
+  <button class="btn btn-mini btn-danger"
+  type="button">X</button>
+
+</div>
+<div class="pry-editor">
+<%= @code %>
+</div>

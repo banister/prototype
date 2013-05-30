@@ -18,7 +18,8 @@
                   "data-sizey": "1"
 
                 triggers:
-                  "click .editor-header button": "clicked:close"
+                  "click .editor-header #close-editor": "clicked:close"
+                  "click .editor-header #expand-editor": "clicked:expand"
 
                 onBeforeClose: =>
                   console.log "should be firing gridster:remove:widget event"
@@ -48,10 +49,11 @@
                 itemViewContainer: "#editors"
 
                 initialize: ->
-                  App.vent.on "gridster:remove:widget", (e)=>
-                    console.log "blergh"
-                    $(@itemViewContainer).data("gridster").remove_widget(e.$el)
-                    e.$el.remove()
+                  unless App.vent._events["gridster:remove:widget"]?
+                    App.vent.on "gridster:remove:widget", (e)=>
+                      console.log "blergh"
+                      $(@itemViewContainer).data("gridster").remove_widget(e.$el)
+                      e.$el.remove()
 
                 appendHtml: (cv, iv)->
                   $(cv.itemViewContainer).data('gridster')?.add_widget(iv.el, 1, 1)
@@ -64,3 +66,7 @@
 
                     widget_base_dimensions: [450, 300]
                     autogenerate_stylesheet: true
+
+                  if @children.length > 0
+                    for name, view of @children._views
+                      @appendHtml(@, view)

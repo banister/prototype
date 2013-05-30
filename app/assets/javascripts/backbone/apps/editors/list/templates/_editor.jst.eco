@@ -1,8 +1,11 @@
 <div class="editor-header">
   <button class="btn btn-mini btn-danger"
-  type="button">X</button>
+          type="button" id="close-editor">X</button>
+  <button class="btn btn-mini btn-primary"
+          type="button" id="expand-editor">O</button>
+
 
 </div>
 <div class="pry-editor">
-<%= @code %>
+  <%= @code %>
 </div>

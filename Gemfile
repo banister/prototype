@@ -6,7 +6,7 @@ gem 'rails', '3.2.13'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-gem 'pry-plus'
+gem 'pry', '1.0.0.pre1'
 gem 'pry-rails'
 gem 'pry-theme'
 gem 'thin'
@@ -18,6 +18,14 @@ gem 'rabl'
 gem 'oj'
 gem 'gon'
 gem 'js-routes'
+
+# for testing js
+group :development, :test do
+  gem 'jasmine'
+  gem 'jasminerice'
+  gem 'guard'
+  gem 'guard-jasmine'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,3 +1,12 @@
+.pry-large-editor-container {
+    width: 100%;
+    height: 800px;
+
+    .pry-editor {
+      height: 100%;
+    }
+}
+
 .pry-editor-container {
   margin: 0px;
   /* width: 400px; */
@@ -13,7 +22,7 @@
     }}
 
       .editor-header {
-
+          border-radius: 8px;
         }
 
 #editors {
