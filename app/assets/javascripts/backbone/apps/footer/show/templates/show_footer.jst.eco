@@ -1,5 +1,5 @@
 <div id="footer">
   <div class="container">
-    <p class="muted">John Mair - Horsewhisperer <%= @currentUser.full_name %></p>
+    <p class="muted">John Mair - Sweet Pig</p>
   </div>
 </div>

@@ -1,16 +1,13 @@
-<div id="header" class="navbar">
+<div id="header" class="navbar navbar-inverse">
   <div class="navbar-inner">
     <img src="assets/pry_logo.png" alt="pry_logo"
-         class="pull-right" width="70" height="70" id="pry_logo">
+         class="pull-left" width="70" height="70" id="pry_logo">
 
     <div class="container">
       <div class="row">
         <div class="pull-left">
         </div>
         <ul class="nav pull-right">
-          <li>
-            Pry Prototype
-          </li>
         </ul>
       </div>
     </div>
