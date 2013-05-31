@@ -7,6 +7,8 @@ EM.next_tick do
   @subscriptions = {}
 
   EM::WebSocket.start(:host => '0.0.0.0', :port => 3001) do |ws|
+    pry_prot.ws = ws
+
     ws.onopen do
       ws.send JSON.dump({ "value" => "web sockets are working!",
                           "type" => "result"
@@ -18,32 +20,7 @@ EM.next_tick do
     end
 
     ws.onmessage do |msg|
-
-      o = JSON.load(msg)
-      case o["type"]
-      when  "codeModel"
-        json = pry_prot.code_info_for(o["value"])
-        ws.send JSON.dump({
-                            "value" => json,
-                            "type" => "codeModel",
-                            "id" => o["id"]
-                          })
-      when "moduleSpace"
-
-        EM.defer do
-
-          json = nil
-          json = pry_prot.module_hash_for(o["value"])
-
-          EM.next_tick do
-            ws.send JSON.dump({ "value" => json,
-                                "type" => "moduleSpace",
-                                "id" => o["id"]
-                              })
-          end
-        end
-      end
-
+      pry_prot.process_json(msg)
     end
 
     ws.onclose do
