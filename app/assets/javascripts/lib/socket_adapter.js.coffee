@@ -17,6 +17,7 @@ class @SocketAdapter
       delete @promises[message.id]
 
   _send_data: (json) =>
+    json.id = @_generateId()
     @websocket.send JSON.stringify(json)
     promise = $.Deferred()
     @promises[json.id] = promise
@@ -24,13 +25,6 @@ class @SocketAdapter
 
   _generateId: ->
     Date.now()
-
-  _buildJson: (info) ->
-    id = @_generateId()
-    json =
-      type: info.type
-      value: info.value
-      id: id
 
   _buildPromise: (json) ->
     if @websocket.readyState == 0
@@ -44,13 +38,21 @@ class @SocketAdapter
 
   _setupRubyModulesListener: ->
     @reqres.setHandler "communicator:get:ruby_modules", (moduleName) =>
-      json = @_buildJson type: "moduleSpace", value: moduleName
-      @_buildPromise(json)
+      @_buildPromise
+        type: "moduleSpace"
+        value: moduleName
 
   _setupCodeModelListener: ->
     @reqres.setHandler "communicator:get:code_model", (codeObjectName) =>
-      json = @_buildJson type: "codeModel", value: codeObjectName
-      @_buildPromise(json)
+      @_buildPromise
+        type: "codeModel"
+        value: codeObjectName
+
+    @reqres.setHandler "communicator:update:code:model", (codeModel) =>
+      @_buildPromise
+        type: "codeModel"
+        value: codeModel.toJSON()
+        requestType: "update"
 
   _setup_listeners: ->
     @_setupRubyModulesListener()
