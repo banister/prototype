@@ -16,6 +16,9 @@
     new EditorsApp.Router
       controller: API
 
+  # Setup our Editor Models
+  EditorsApp.EditorModels = new App.Entities.CodeModels
+
   App.commands.setHandler "editors:add:code:model", (model) ->
     EditorsApp.EditorModels.add model
 
@@ -27,5 +30,3 @@
 
   App.commands.setHandler "editors:list", ->
     App.navigate "editors", trigger: true
-
-  EditorsApp.EditorModels = new App.Entities.CodeModels
