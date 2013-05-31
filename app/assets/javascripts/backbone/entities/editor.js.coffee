@@ -7,6 +7,15 @@
       # with something more sensible
       @set id: @cid
 
+    sync: (method, model, options) ->
+      if method == "update"
+        App.request("communicator:update:code:model", model).then (value) =>
+          options.success(value)
+          @
+      else
+        Backbone.sync method, model, options
+
+
   class Entities.CodeModels extends Entities.Collection
     model: Entities.CodeModel
 
