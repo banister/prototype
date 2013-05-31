@@ -14,16 +14,15 @@
                 triggers:
                   "click .editor-header button": "clicked:close"
 
-                # onBeforeClose: =>
-                #   console.log "should be firing gridster:remove:widget event"
-                #   App.vent.trigger("gridster:remove:widget", @)
+                onClose: ->
+                  @editor?.destroy()
 
                 onShow: ->
                   domElement = @$(".pry-editor").get(0)
                   console.log(domElement)
-                  editor = ace.edit(domElement)
-                  editor.setTheme("ace/theme/tomorrow_night")
-                  editor.getSession().setMode("ace/mode/ruby")
+                  @editor = ace.edit(domElement)
+                  @editor.setTheme("ace/theme/tomorrow_night")
+                  @editor.getSession().setMode("ace/mode/ruby")
 
         class Show.Loading extends App.Views.ItemView
                 template: "editors/show/templates/_loading"

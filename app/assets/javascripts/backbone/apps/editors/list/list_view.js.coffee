@@ -21,8 +21,12 @@
                   "click .editor-header #close-editor": "clicked:close"
                   "click .editor-header #expand-editor": "clicked:expand"
 
+
+                onClose: ->
+                  console.log "closing editor"
+                  @editor?.destroy()
+
                 onBeforeClose: =>
-                  console.log "should be firing gridster:remove:widget event"
                   App.vent.trigger("gridster:remove:widget", @)
                   # @triggerMethod("gridster:remove:widget", @)
                   # @stopListening()
@@ -30,9 +34,9 @@
                 onShow: ->
                   domElement = @$(".pry-editor").get(0)
                   console.log(domElement)
-                  editor = ace.edit(domElement)
-                  editor.setTheme("ace/theme/tomorrow_night")
-                  editor.getSession().setMode("ace/mode/ruby")
+                  @editor = ace.edit(domElement)
+                  @editor.setTheme("ace/theme/tomorrow_night")
+                  @editor.getSession().setMode("ace/mode/ruby")
 
         class List.Empty extends App.Views.ItemView
                 template: "editors/list/templates/_empty"
