@@ -20,6 +20,7 @@
                 triggers:
                   "click .editor-header #close-editor": "clicked:close"
                   "click .editor-header #expand-editor": "clicked:expand"
+                  "click .editor-header #apply-editor" : "clicked:apply"
 
 
                 onClose: ->

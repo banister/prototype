@@ -1,9 +1,17 @@
 <div class="editor-header">
-  <button class="btn btn-mini btn-danger"
-          type="button" id="close-editor">X</button>
-  <button class="btn btn-mini btn-primary"
-          type="button" id="expand-editor">O</button>
+  <!-- <button class="btn btn-mini btn-danger" -->
+  <!--         type="button" id="close-editor">X</button> -->
+  <!-- <button class="btn btn-mini btn-primary" -->
+  <!--         type="button" id="expand-editor">O</button> -->
+  <!--   <button class="btn btn-mini btn-primary" -->
+  <!--         type="button" id="expand-editor">O</button> -->
 
+<div class="btn-group">
+  <button class="btn btn-mini btn-danger" id="close-editor">X</button>
+  <button class="btn btn-mini btn-primary" id="expand-editor">O</button>
+  <button class="btn btn-mini btn-success" id="apply-editor">A</button>
+  <button class="btn btn-mini btn-warning" id="save-editor">S</button>
+</div>
 
 </div>
 <div class="pry-editor">

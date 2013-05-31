@@ -18,6 +18,10 @@
       editorsView.on "itemview:clicked:expand", (e) ->
         App.execute "editors:expand:editor", e.model
 
+      editorsView.on "itemview:clicked:apply", (e) ->
+        console.log "trying to apply changes from code model"
+        e.model.save()
+
       editorsView.on "itemview:gridster:remove:widget", (e) ->
         console.log "trying to remove widget from gridster"
         $(@itemViewContainer).data("gridster").remove_widget(e.$el)
