@@ -36,8 +36,27 @@
                   domElement = @$(".pry-editor").get(0)
                   console.log(domElement)
                   @editor = ace.edit(domElement)
+                  window.editor = @editor
                   @editor.setTheme("ace/theme/tomorrow_night")
                   @editor.getSession().setMode("ace/mode/ruby")
+
+                  @editor.on "guttermousedown", (e) =>
+                    target = e.domEvent.target
+
+                    if target.className.indexOf("ace_gutter-cell") == -1
+                      return
+                    if !@editor.isFocused()
+                      return
+                    # if e.clientX > 25 + target.getBoundingClientRect().left
+                    #   return
+
+                    console.log "e.clientX: ", e.clientX
+                    console.log "getBoundingClientRect().left: ", target.getBoundingClientRect().left
+
+                    console.log "should have set breakpoint!"
+                    row = e.getDocumentPosition().row
+                    e.editor.session.setBreakpoint(row)
+                    e.stop()
 
         class List.Empty extends App.Views.ItemView
                 template: "editors/list/templates/_empty"

@@ -26,6 +26,13 @@
    /* background: #eee */
   }
 
+.ace_gutter-cell.ace_breakpoint{
+     border-radius: 20px 0px 0px 20px;
+     background-color: red;
+     box-shadow: 0px 0px 1px 1px red inset;
+
+}
+
 
 /* stuff i dumped from http://jsfiddle.net/singram/PdjLE/ that seems to fix */
 /* bugs related to   items overlapping one another at initial startup until 'touched' (moved */
