@@ -20,6 +20,7 @@
 
       editorsView.on "itemview:clicked:apply", (e) ->
         console.log "trying to apply changes from code model"
+        e.model.set code: e.editor.getValue()
         e.model.save()
 
       editorsView.on "itemview:gridster:remove:widget", (e) ->

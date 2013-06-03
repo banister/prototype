@@ -22,7 +22,6 @@
                   "click .editor-header #expand-editor": "clicked:expand"
                   "click .editor-header #apply-editor" : "clicked:apply"
 
-
                 onClose: ->
                   console.log "closing editor"
                   @editor?.destroy()
