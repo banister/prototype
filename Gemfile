@@ -11,7 +11,7 @@ gem 'pry-rails'
 gem 'pry-theme'
 gem 'thin'
 gem 'better_errors'
-gem 'binding_of_caller'
+gem 'pry-byebug'
 gem 'eventmachine'
 gem 'em-websocket'
 gem 'rabl'
@@ -43,6 +43,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'kendoui-rails'
 
 # To use ActiveModel has_secure_password

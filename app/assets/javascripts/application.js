@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.ui.all
 //= require lib/underscore
 //= require lib/underscore.string.min
 //= require lib/jquery.gridster.min
