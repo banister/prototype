@@ -3,7 +3,7 @@
   class Entities.RubyModule extends Entities.Model
     initialize: ->
       @fullName = @get('fullName')
-      @set id: @fullName
+      @set id: @fullName if not @get('id')
 
       @processChildElements()
 
@@ -13,6 +13,7 @@
 
     sync: (method, model, options) ->
       if method == "read"
+        console.log "doing a read"
         App.request("communicator:get:ruby_modules", model.id).then (value) =>
           options.success(value)
           @processChildElements()
@@ -50,8 +51,4 @@
     model: Entities.RubyModule
 
   App.reqres.setHandler "ruby_module:entities", (moduleName) ->
-    promise = $.Deferred()
-    App.request("communicator:get:ruby_modules", moduleName).then (value) ->
-      promise.resolve new Entities.RubyModule(value)
-
-    promise.promise()
+    new Entities.RubyModule(id: moduleName).fetch()
