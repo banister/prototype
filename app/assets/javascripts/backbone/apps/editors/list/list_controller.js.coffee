@@ -12,18 +12,18 @@
       collection = App.EditorsApp.EditorModels
       editorsView = @getEditorsView(collection)
 
-      editorsView.on "itemview:clicked:close", (e) ->
+      editorsView.on "childview:clicked:close", (e) ->
         App.execute "editors:remove:code:model", e.model
 
-      editorsView.on "itemview:clicked:expand", (e) ->
+      editorsView.on "childview:clicked:expand", (e) ->
         App.execute "editors:expand:editor", e.model
 
-      editorsView.on "itemview:clicked:apply", (e) ->
+      editorsView.on "childview:clicked:apply", (e) ->
         console.log "trying to apply changes from code model"
         e.model.set code: e.editor.getValue()
         e.model.save()
 
-      editorsView.on "itemview:gridster:remove:widget", (e) ->
+      editorsView.on "childview:gridster:remove:widget", (e) ->
         console.log "trying to remove widget from gridster"
         $(@itemViewContainer).data("gridster").remove_widget(e.$el)
 
