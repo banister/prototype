@@ -2,7 +2,7 @@
 
   List.Controller =
     listModules: ->
-      fetching_ruby_modules = App.request "ruby_module:entities", "Object"
+      fetching_ruby_modules = App.request "ruby:module:entities", "Object"
 
       fetching_ruby_modules.then (value) =>
         modulesView = @getModulesView value

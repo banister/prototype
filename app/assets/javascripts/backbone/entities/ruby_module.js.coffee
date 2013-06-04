@@ -50,5 +50,5 @@
   class Entities.RubyModules extends Entities.Collection
     model: Entities.RubyModule
 
-  App.reqres.setHandler "ruby_module:entities", (moduleName) ->
+  App.reqres.setHandler "ruby:module:entities", (moduleName) ->
     new Entities.RubyModule(id: moduleName).fetch()
