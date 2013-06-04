@@ -14,7 +14,7 @@
     sync: (method, model, options) ->
       if method == "read"
         console.log "doing a read"
-        App.request("communicator:get:ruby_modules", model.id).then (value) =>
+        App.request("communicator:get:ruby:modules", model.id).then (value) =>
           options.success(value)
           @processChildElements()
           @

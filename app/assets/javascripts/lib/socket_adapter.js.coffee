@@ -37,7 +37,7 @@ class @SocketAdapter
       @_send_data(json)
 
   _setupRubyModulesListener: ->
-    @reqres.setHandler "communicator:get:ruby_modules", (moduleName) =>
+    @reqres.setHandler "communicator:get:ruby:modules", (moduleName) =>
       @_buildPromise
         type: "moduleSpace"
         value: moduleName
