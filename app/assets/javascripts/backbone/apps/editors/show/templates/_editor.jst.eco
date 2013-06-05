@@ -3,6 +3,4 @@
   type="button">X</button>
 
 </div>
-<div class="pry-editor">
-<%= @code %>
-</div>
+<div class="pry-editor"><%= @code %></div>
