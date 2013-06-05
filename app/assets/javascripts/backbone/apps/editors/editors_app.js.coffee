@@ -31,9 +31,6 @@
   App.commands.setHandler "editors:list", ->
     App.navigate "editors", trigger: true
 
-  App.vent.on "editors:no:code:model:found", (error_info) ->
-    API.show
-
   App.commands.setHandler "create:code:model:and:add:to:editor:collection", (codeObjectName) ->
     cm = App.request("code:model:entity", codeObjectName)
     cm.fetch()
