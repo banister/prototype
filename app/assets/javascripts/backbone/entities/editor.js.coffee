@@ -21,8 +21,20 @@
       else
         Backbone.sync method, model, options
 
+    # fetch: (options) ->
+    #   _.defaults options,
+    #     success: _.bind(@fetchSuccess, @, options)
+    #     error:   _.bind(@fetchError, @)
+
+    #   super options
+
+
+    # fetchSuccess: ->
+
+
+
   class Entities.CodeModels extends Entities.Collection
     model: Entities.CodeModel
 
   App.reqres.setHandler "code:model:entity", (codeObjectName) ->
-    new Entities.CodeModel(id: codeObjectName).fetch()
+    new Entities.CodeModel(fullName: codeObjectName)

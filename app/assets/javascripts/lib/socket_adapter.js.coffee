@@ -14,7 +14,7 @@ class @SocketAdapter
 
     if promise?
       if message.error?
-        promise.reject(message.error)
+        promise.reject(message)
       else
         promise.resolve(message.value)
 

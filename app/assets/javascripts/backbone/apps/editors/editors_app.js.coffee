@@ -35,8 +35,9 @@
     API.show
 
   App.commands.setHandler "create:code:model:and:add:to:editor:collection", (codeObjectName) ->
-    App.request("code:model:entity", codeObjectName)
+    cm = App.request("code:model:entity", codeObjectName)
+    cm.fetch()
     .done (codeModel) ->
       EditorsApp.EditorModels.add codeModel
-    .fail (codeModel) ->
-      console.log "can't find code for a code model!"
+    .fail (errorInfo) ->
+      toastr.error(errorInfo.error, cm.get('fullName'))
