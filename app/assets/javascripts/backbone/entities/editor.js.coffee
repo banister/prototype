@@ -7,7 +7,7 @@
 
     sync: (method, model, options) ->
       if method == "read"
-        App.request("communicator:get:code:model", model.id)
+        App.request("communicator:get:code:model", model)
         .done (value) =>
           options.success(value)
           @
@@ -15,23 +15,15 @@
           options.error(value)
           @
       else if method == "update"
-        App.request("communicator:update:code:model", model).then (value) =>
+        App.request("communicator:update:code:model", model)
+        .done (value) =>
           options.success(value)
+          @
+        .fail (value) =>
+          options.error(value)
           @
       else
         Backbone.sync method, model, options
-
-    # fetch: (options) ->
-    #   _.defaults options,
-    #     success: _.bind(@fetchSuccess, @, options)
-    #     error:   _.bind(@fetchError, @)
-
-    #   super options
-
-
-    # fetchSuccess: ->
-
-
 
   class Entities.CodeModels extends Entities.Collection
     model: Entities.CodeModel

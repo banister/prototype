@@ -47,10 +47,10 @@ class @SocketAdapter
         value: moduleName
 
   _setupCodeModelListener: ->
-    @reqres.setHandler "communicator:get:code:model", (codeObjectName) =>
+    @reqres.setHandler "communicator:get:code:model", (codeModel) =>
       @_buildPromise
         type: "codeModel"
-        value: codeObjectName
+        value: codeModel.id
 
     @reqres.setHandler "communicator:update:code:model", (codeModel) =>
       @_buildPromise
