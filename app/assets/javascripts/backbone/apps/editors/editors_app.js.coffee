@@ -36,5 +36,6 @@
     cm.fetch()
     .done (codeModel) ->
       EditorsApp.EditorModels.add codeModel
+      App.execute "editors:list" unless Backbone.history.fragment is "editors"
     .fail (errorInfo) ->
       toastr.error(errorInfo.error, cm.get('fullName'))
