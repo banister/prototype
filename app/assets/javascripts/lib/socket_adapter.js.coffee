@@ -10,10 +10,14 @@ class @SocketAdapter
 
   _message_processor: (event) =>
     message = JSON.parse(event.data)
-
     promise = @promises[message.id]
+
     if promise?
-      promise.resolve(message.value)
+      if message.error?
+        promise.reject(message.error)
+      else
+        promise.resolve(message.value)
+
       delete @promises[message.id]
 
   _send_data: (json) =>
@@ -43,7 +47,7 @@ class @SocketAdapter
         value: moduleName
 
   _setupCodeModelListener: ->
-    @reqres.setHandler "communicator:get:code_model", (codeObjectName) =>
+    @reqres.setHandler "communicator:get:code:model", (codeObjectName) =>
       @_buildPromise
         type: "codeModel"
         value: codeObjectName

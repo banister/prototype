@@ -3,22 +3,26 @@
   # This is the model that backs an Editor view
   class Entities.CodeModel extends Entities.Model
     initialize: ->
-      # just set the id to the cid until we come up
-      # with something more sensible
-      @set id: @cid
+      @set id: @get('fullName') if not @get('id')
 
     sync: (method, model, options) ->
-      if method == "update"
+      if method == "read"
+        App.request("communicator:get:code:model", model.id)
+        .done (value) =>
+          options.success(value)
+          @
+        .fail (value) =>
+          options.error(value)
+          @
+      else if method == "update"
         App.request("communicator:update:code:model", model).then (value) =>
           options.success(value)
           @
       else
         Backbone.sync method, model, options
 
-
   class Entities.CodeModels extends Entities.Collection
     model: Entities.CodeModel
 
-  App.vent.on "add:code:model:to:editor:collection", (data) ->
-    App.request("communicator:get:code_model", data).then (response) ->
-      App.execute "editors:add:code:model", new Entities.CodeModel(response)
+  App.reqres.setHandler "code:model:entity", (codeObjectName) ->
+    new Entities.CodeModel(id: codeObjectName).fetch()

@@ -30,3 +30,13 @@
 
   App.commands.setHandler "editors:list", ->
     App.navigate "editors", trigger: true
+
+  App.vent.on "editors:no:code:model:found", (error_info) ->
+    API.show
+
+  App.commands.setHandler "create:code:model:and:add:to:editor:collection", (codeObjectName) ->
+    App.request("code:model:entity", codeObjectName)
+    .done (codeModel) ->
+      EditorsApp.EditorModels.add codeModel
+    .fail (codeModel) ->
+      console.log "can't find code for a code model!"
