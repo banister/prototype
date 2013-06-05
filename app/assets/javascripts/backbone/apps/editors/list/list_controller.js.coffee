@@ -22,6 +22,10 @@
         console.log "trying to apply changes from code model"
         e.model.set code: e.editor.getValue()
         e.model.save()
+        .done (model) ->
+          toastr.success("Applied changes.", model.fullName)
+        .fail (res) ->
+          toastr.error("Couldn't apply changes! #{res.error}", e.model.get('fullName'))
 
       editorsView.on "childview:gridster:remove:widget", (e) ->
         console.log "trying to remove widget from gridster"
