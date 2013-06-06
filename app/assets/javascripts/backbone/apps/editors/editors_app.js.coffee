@@ -7,7 +7,7 @@
 
   API =
     listEditors: ->
-      EditorsApp.List.Controller.listEditors()
+      new EditorsApp.List.Controller
 
     showEditor: (id) ->
       EditorsApp.Show.Controller.showEditor(id)

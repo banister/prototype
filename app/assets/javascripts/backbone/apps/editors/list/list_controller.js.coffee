@@ -1,24 +1,28 @@
 @Demo.module "EditorsApp.List", (List, App, Backbone, Marionette, $, _) ->
-  List.Controller =
-    listEditors: ->
 
+  class List.Controller extends App.Controllers.Base
+    initialize: ->
       @layout = @getLayoutView()
-      @layout.on 'show', =>
-        @showEditors()
 
-      App.mainRegion.show @layout
+      @listenTo @layout, 'show', =>
+        @editorsRegion()
 
-    showEditors: ->
+      @show @layout
+
+    onClose: ->
+      console.info "closing List.Controller!"
+
+    editorsRegion: ->
       collection = App.EditorsApp.EditorModels
       editorsView = @getEditorsView(collection)
 
-      editorsView.on "childview:clicked:close", (e) ->
+      @listenTo editorsView, "childview:clicked:close", (e) ->
         App.execute "editors:remove:code:model", e.model
 
-      editorsView.on "childview:clicked:expand", (e) ->
+      @listenTo editorsView, "childview:clicked:expand", (e) ->
         App.execute "editors:expand:editor", e.model
 
-      editorsView.on "childview:clicked:apply", (e) ->
+      @listenTo editorsView, "childview:clicked:apply", (e) ->
         console.log "trying to apply changes from code model"
         e.model.set code: e.editor.getValue()
         e.model.save()
@@ -27,7 +31,7 @@
         .fail (res) ->
           toastr.error("Couldn't apply changes! #{res.error}", e.model.get('fullName'))
 
-      editorsView.on "childview:gridster:remove:widget", (e) ->
+      @listenTo editorsView, "childview:gridster:remove:widget", (e) ->
         console.log "trying to remove widget from gridster"
         $(@itemViewContainer).data("gridster").remove_widget(e.$el)
 
