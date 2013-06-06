@@ -18,6 +18,9 @@
         App.reqres.setHandler "get:current:user", ->
                 App.currentUser
 
+        App.reqres.setHandler "default:region", ->
+          App.mainRegion
+
         App.addInitializer ->
                 App.module("HeaderApp").start()
                 App.module("FooterApp").start()
