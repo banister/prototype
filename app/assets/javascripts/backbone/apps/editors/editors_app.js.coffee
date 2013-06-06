@@ -20,6 +20,12 @@
   # Setup our Editor Models
   EditorsApp.EditorModels = new App.Entities.CodeModels
 
+  App.reqres.setHandler "editor:models", ->
+    EditorsApp.EditorModels
+
+  App.reqres.setHandler "editor:model", (id) ->
+    EditorsApp.EditorModels.get(id)
+
   App.commands.setHandler "editors:add:code:model", (model) ->
     EditorsApp.EditorModels.add model
 
