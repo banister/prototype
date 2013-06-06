@@ -4,7 +4,8 @@
 
   API =
     listHeader: ->
-      ModulespacesApp.List.Controller.listModules()
+      new ModulespacesApp.List.Controller
+        region: App.sidebarRegion
 
   ModulespacesApp.on "start", ->
     API.listHeader()

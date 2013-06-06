@@ -1,13 +1,14 @@
 @Demo.module "ModulespacesApp.List", (List, App, Backbone, Marionette, $, _) ->
 
-  List.Controller =
-    listModules: ->
+  class List.Controller extends App.Controllers.Base
+
+    initialize: (options) ->
       fetching_ruby_modules = App.request "ruby:module:entities", "Object"
 
       fetching_ruby_modules.then (value) =>
         modulesView = @getModulesView value
-        App.sidebarRegion.show modulesView
+        @show modulesView
 
     getModulesView: (ruby_modules) ->
       new List.RubyModules
-        root_model: ruby_modules
+        rootModel: ruby_modules

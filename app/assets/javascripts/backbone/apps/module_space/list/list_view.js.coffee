@@ -3,7 +3,7 @@
   class List.RubyModules extends App.Views.ItemView
 
     initialize: (options)->
-      @model = @rootModel = options.root_model
+      @model = @rootModel = options.rootModel
 
     template: "module_space/list/templates/modules"
 
