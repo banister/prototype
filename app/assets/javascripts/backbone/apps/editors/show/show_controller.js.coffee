@@ -1,17 +1,23 @@
 @Demo.module "EditorsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
-  Show.Controller =
-    showEditor: (id) ->
+  class Show.Controller extends App.Controllers.Base
+    initialize: (options) ->
+      { id } = options
 
       @layout = @getLayoutView()
-      @layout.on 'show', =>
-        @displayEditor(id)
 
-      App.mainRegion.show @layout
+      @listenTo @layout, 'show', =>
+        @editorsRegion(id)
 
-    displayEditor: (id) ->
-      model = App.EditorsApp.EditorModels.get(id)
+      @show @layout
+
+    onClose: ->
+      console.info "closing Show.Controller!"
+
+    editorsRegion: (id) ->
+      model = App.request "editor:model", id
+
       editorView = @getEditorView(model)
-      editorView.on "clicked:close", (e) ->
+      @listenTo editorView, "clicked:close", (e) ->
         App.execute "editors:list"
 
       @layout.editorRegion.show(editorView)

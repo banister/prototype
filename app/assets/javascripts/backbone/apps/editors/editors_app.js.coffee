@@ -10,7 +10,8 @@
       new EditorsApp.List.Controller
 
     showEditor: (id) ->
-      EditorsApp.Show.Controller.showEditor(id)
+      new EditorsApp.Show.Controller
+        id: id
 
   App.addInitializer ->
     new EditorsApp.Router
