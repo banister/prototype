@@ -85,7 +85,7 @@
                   $(@itemViewContainer).gridster
                     widget_margins: [10, 10]
                     draggable:
-                      handle: ".editor-header"
+                      handle: ".editor-header, .editor-header > small"
 
                     widget_base_dimensions: [450, 300]
                     autogenerate_stylesheet: true
