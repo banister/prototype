@@ -16,24 +16,27 @@
       collection = App.EditorsApp.EditorModels
       editorsView = @getEditorsView(collection)
 
-      @listenTo editorsView, "childview:clicked:close", (e) ->
-        App.execute "editors:remove:code:model", e.model
+      @listenTo editorsView, "childview:clicked:close", (view) ->
+        App.execute "editors:remove:code:model", view.model
 
-      @listenTo editorsView, "childview:clicked:expand", (e) ->
-        App.execute "editors:expand:editor", e.model
+      @listenTo editorsView, "childview:clicked:expand", (view) ->
+        view.model.set code: view.editor.getValue()
+        App.execute "editors:expand:editor", view.model
 
-      @listenTo editorsView, "childview:clicked:apply", (e) ->
+      @listenTo editorsView, "childview:clicked:apply", (view) ->
         console.log "trying to apply changes from code model"
-        e.model.set code: e.editor.getValue()
-        e.model.save()
+        view.model.set code: view.editor.getValue()
+        view.model.save()
         .done (model) ->
           toastr.success("Applied changes.", model.fullName)
+          view.editor.session.clearBreakpoints()
         .fail (res) ->
-          toastr.error("Couldn't apply changes! #{res.error}", e.model.get('fullName'))
+          toastr.error("Couldn't apply changes! #{res.error}", view.model.get('fullName'))
+          view.addTemporaryErrorMarker(res.error[2] - 1)
 
-      @listenTo editorsView, "childview:gridster:remove:widget", (e) ->
+      @listenTo editorsView, "childview:gridster:remove:widget", (view) ->
         console.log "trying to remove widget from gridster"
-        $(@itemViewContainer).data("gridster").remove_widget(e.$el)
+        $(@itemViewContainer).data("gridster").remove_widget(view.$el)
 
       @layout.editorsRegion.show(editorsView)
 

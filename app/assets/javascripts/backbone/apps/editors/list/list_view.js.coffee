@@ -31,6 +31,20 @@
                   # @triggerMethod("gridster:remove:widget", @)
                   # @stopListening()
 
+                addTemporaryErrorMarker: (lineNumber) ->
+                  @editor.moveCursorTo(lineNumber, 1)
+                  @editor.clearSelection()
+                  @editor.session.setBreakpoint(lineNumber, "error_marker")
+                  @editor.scrollToLine(lineNumber, true, true)
+
+                  fadeOutFunction = ->
+                    @$(".ace_gutter-cell.error_marker").switchClass "error_marker", "",
+                      easing: "easeInOutQuad"
+                      duration: 3000
+                      complete: => @editor.session.clearBreakpoints()
+
+                  setTimeout(fadeOutFunction, 5000)
+
                 onShow: ->
                   domElement = @$(".pry-editor").get(0)
                   console.log(domElement)
