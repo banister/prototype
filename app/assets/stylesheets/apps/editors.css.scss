@@ -19,6 +19,16 @@
     }}
 
       .editor-header {
+        small {
+          color: white;
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: moz-none;
+          -ms-user-select: none;
+          user-select: none;
+          cursor: default;
+          }
           /* border-radius: 8px; */
         }
 
@@ -26,7 +36,15 @@
    /* background: #eee */
   }
 
+
 .ace_gutter-cell.ace_breakpoint{
+     border-radius: 20px 0px 0px 20px;
+     background-color: blue;
+     box-shadow: 0px 0px 1px 1px red inset;
+
+}
+
+.ace_gutter-cell.error_marker {
      border-radius: 20px 0px 0px 20px;
      background-color: red;
      box-shadow: 0px 0px 1px 1px red inset;
