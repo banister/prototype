@@ -1,10 +1,10 @@
 @Demo.module "FooterApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-        Show.Controller =
+  class Show.Controller extends App.Controllers.Base
 
-                showFooter: ->
-                        footerView = @getFooterView()
-                        App.footerRegion.show footerView
+    initialize: ->
+      footerView = @getFooterView()
+      @show footerView
 
-                getFooterView: ->
-                        new Show.Footer
+    getFooterView: ->
+      new Show.Footer
