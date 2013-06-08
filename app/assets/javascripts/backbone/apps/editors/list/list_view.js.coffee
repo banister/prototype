@@ -21,6 +21,7 @@
                   "click .editor-header #close-editor": "clicked:close"
                   "click .editor-header #expand-editor": "clicked:expand"
                   "click .editor-header #apply-editor" : "clicked:apply"
+                  "click .editor-header #save-editor" : "clicked:save"
 
                 onClose: ->
                   console.log "closing editor"
