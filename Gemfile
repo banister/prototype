@@ -21,10 +21,8 @@ gem 'js-routes'
 
 # for testing js
 group :development, :test do
-  gem 'jasmine'
-  gem 'jasminerice'
-  gem 'guard'
-  gem 'guard-jasmine'
+  gem'konacha'
+  gem 'selenium-webdriver'
 end
 
 # Gems used only for assets and not required
