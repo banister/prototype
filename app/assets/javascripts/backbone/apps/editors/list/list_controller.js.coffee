@@ -28,7 +28,7 @@
         view.model.set shouldSaveToFile: true
         view.model.save()
         .done (model) ->
-          toastr.success("Saved changes to #{model.originalSourceInfo[1]}", model.fullName)
+          toastr.success("Saved changes to #{model.originalSourceInfo.sourceLocation[1]}", model.fullName)
           view.editor.session.clearBreakpoints()
         .fail (res) ->
           toastr.error("Couldn't apply changes! #{res.error}", view.model.get('fullName'))
