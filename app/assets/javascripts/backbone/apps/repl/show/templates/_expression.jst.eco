@@ -1,0 +1,2 @@
+<div class="input-expression"></div>
+<div class="output-result"> <%= @resultExpression %></div>

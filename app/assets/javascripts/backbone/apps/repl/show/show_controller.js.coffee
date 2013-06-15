@@ -1,6 +1,7 @@
 @Demo.module "ReplApp.Show", (Show, App, Backbone, Marionette, $, _) ->
   class Show.Controller extends App.Controllers.Base
     initialize: (options) ->
+      @expressionModels = App.request "expressions:entity"
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
@@ -12,12 +13,29 @@
       console.info "closing Show.Controller!"
 
     replRegion: ->
-      replView = @getReplView()
+      @replView = @getReplView()
 
-      @layout.replRegion.show(replView)
+      @listenTo @replView, 'childview:enter:pressed', @enterPressed
+
+      @layout.replRegion.show(@replView)
+
+    enterPressed: (childView) ->
+      editor = childView.editor
+      model = childView.model
+
+      model.set(expressionContent: editor.getValue())
+
+      model.tryEvaluate()
+      .done =>
+        if childView.isLastChild()
+          @expressionModels.push App.request "new:expression:entity"
+
+      .fail (failure) ->
+        console.log failure
 
     getReplView: ->
-      new Show.Repl
+      new Show.Expressions
+        collection: @expressionModels
 
     getLayoutView: ->
       new Show.Layout

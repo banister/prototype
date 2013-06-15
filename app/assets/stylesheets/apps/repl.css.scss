@@ -1,9 +1,12 @@
-.repl-container {
+#expressions {
+  list-style-type: none;
+  .expression-container {
     width: 100%;
-    height: 650px;
     margin-right: 80px;
 
-    .pry-repl {
-      height: 100%;
+    .input-expression {
+      margin: 50px 50px;
+      height: 21px;
     }
+  }
 }
