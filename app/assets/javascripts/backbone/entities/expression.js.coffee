@@ -5,7 +5,7 @@
     tryEvaluate: ->
       App.request("communicator:repl:eval", @)
       .done (res) =>
-        @set expressionResult: JSON.stringify(res)
+        @set expressionResult: "=> #{JSON.stringify(res)}"
 
   class Entities.Expressions extends Entities.Collection
     model: Entities.Expression
