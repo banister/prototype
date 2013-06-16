@@ -19,13 +19,17 @@
     events:
       "keydown .input-expression" : "keypress"
 
+    isEnterKey: (key) ->
+      key == 13
+
     updateExpressionResult: ->
       @$('.output-result').text @model.get('expressionResult')
 
+    editorChanged: (e) =>
+      @resizeEditor()
+
     keypress: (e) ->
-      if e.keyCode == 13
-        @resizeEditor()
-        @triggerMethod("enter:pressed")
+      @triggerMethod("eval:repl") if @isEnterKey(e.which)
 
     isLastChild: ->
       @$el.is(":last-child")
@@ -34,7 +38,8 @@
       @editor.session.getLength() * @lineHeight
 
     resizeEditor: ->
-      $(@editor.container).height(@lineHeight + @editorHeight())
+      console.log "should be resizing to #{@editorHeight()}"
+      $(@editor.container).height(@editorHeight())
       @editor.resize()
 
     configureEditor: (editor) ->
@@ -45,7 +50,15 @@
       editor.setShowPrintMargin(false)
       editor.getSession().setUseSoftTabs(true)
       editor.getSession().setTabSize(2)
+      editor.commands.addCommand
+        name: 'evalRepl'
+        bindKey:
+          win: 'Ctrl-R'
+          mac: 'Command-R'
+        exec: (e) =>
+          @triggerMethod("eval:repl")
 
+      editor.getSession().on 'change', @editorChanged
       window.ed = editor
 
     onShow: ->
@@ -61,7 +74,6 @@
   class Show.Expressions extends App.Views.CompositeView
     template: "repl/show/templates/_expressions"
     itemView: Show.Expression
-    # emptyView: List.Empty
     itemViewContainer: "#expressions"
 
     collectionEvents:

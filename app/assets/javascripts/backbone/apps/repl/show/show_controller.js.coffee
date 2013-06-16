@@ -15,15 +15,15 @@
     replRegion: ->
       @replView = @getReplView()
 
-      @listenTo @replView, 'childview:enter:pressed', @enterPressed
+      @listenTo @replView, 'childview:eval:repl', @evalRepl
 
       @layout.replRegion.show(@replView)
 
-    enterPressed: (childView) ->
+    evalRepl: (childView) ->
       editor = childView.editor
       model = childView.model
 
-      model.set(expressionContent: editor.getValue())
+      model.set expressionContent: editor.getValue()
 
       model.tryEvaluate()
       .done =>
