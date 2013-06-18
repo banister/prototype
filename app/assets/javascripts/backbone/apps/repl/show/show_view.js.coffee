@@ -13,6 +13,10 @@
     tagName: "li"
     lineHeight: 18
 
+    ui:
+      outputResultArea: ".output-result"
+      inputExpressionArea: ".input-expression"
+
     modelEvents:
       "change:expressionResult" : "updateExpressionResult"
 
@@ -23,7 +27,7 @@
       key is 13
 
     updateExpressionResult: ->
-      @$('.output-result').text @model.get('expressionResult')
+      @ui.outputResultArea.text @model.get('expressionResult')
 
     editorChanged: (e) =>
       @resizeEditor()
@@ -85,7 +89,7 @@
       window.ed = editor
 
     onShow: ->
-      domElement = @$('.input-expression').get(0)
+      domElement = @ui.inputExpressionArea.get(0)
       console.log(domElement)
       @editor = ace.edit(domElement)
       @configureEditor(@editor)
