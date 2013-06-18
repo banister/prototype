@@ -38,8 +38,12 @@
     setEditorContent: (content) ->
       @editor.setValue(content)
 
+    evalRepl: ->
+      @nthParentCounter = 0
+      @trigger("eval:repl")
+
     keypress: (e) ->
-      @trigger("eval:repl") if @isEnterKey(e.which)
+      @evalRepl() if @isEnterKey(e.which)
 
     isLastChild: ->
       @$el.is(":last-child")
@@ -55,8 +59,19 @@
     isCursorOnFirstLine: ->
       @editor.getCursorPosition().row is 0
 
-    insertExpressionHistory: ->
-      @trigger "replace:with:other:expression", 1
+    isCursorOnLastLine: ->
+      @editor.getCursorPosition().row >= (@editor.getSession().getLength() - 1)
+
+    insertExpressionHistory: (c) ->
+      @nthParentCounter ?= 0
+
+      @cachedContent = @editorContent() if @nthParentCounter is 0
+
+      @nthParentCounter += c
+
+      console.log("nthParentCounter #{c}")
+
+      @trigger "replace:with:other:expression"
 
     configureEditor: (editor) ->
       editor.setTheme("ace/theme/monokai")
@@ -72,18 +87,26 @@
           win: 'Ctrl-R'
           mac: 'Command-R'
         exec: (e) =>
-          @trigger("eval:repl")
+          @evalRepl()
 
       editor.commands.addCommand
         name: 'up'
         bindKey: 'Up'
         exec: (editor, args) =>
           if @isCursorOnFirstLine()
-            @insertExpressionHistory()
+            @insertExpressionHistory(1)
           else
             editor.navigateUp(args.times)
 
-          console.log "pressed up"
+      editor.commands.addCommand
+        name: 'down'
+        bindKey: 'Down'
+        exec: (editor, args) =>
+          console.log "pressed down"
+          if @isCursorOnLastLine()
+            @insertExpressionHistory(-1)
+          else
+            editor.navigateDown(args.times)
 
       editor.getSession().on 'change', @editorChanged
       window.ed = editor
@@ -103,6 +126,8 @@
     itemView: Show.Expression
     itemViewContainer: "#expressions"
 
+    # Given a view, and an integer (nth), return the sibling view that is
+    # nth elements away from that view.
     nthParentView: (view, nth) ->
       children = @children.toArray()
       viewIndex = children.indexOf(view)

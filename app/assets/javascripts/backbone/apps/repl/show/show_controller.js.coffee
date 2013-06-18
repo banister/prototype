@@ -12,9 +12,26 @@
     onClose: ->
       console.info "closing Show.Controller!"
 
-    replaceWithNthParentExpression: (requestingView, nth) =>
-      nthParentView = @replView.nthParentView(requestingView, nth)
-      requestingView.setEditorContent nthParentView.editorContent()
+    replaceWithNthParentExpression: (requestingView) =>
+      children = @replView.children.toArray()
+      viewIndex = children.indexOf(requestingView)
+
+      if requestingView.nthParentCounter < 0
+        requestingView.nthParentCounter = 0
+
+      if (viewIndex - requestingView.nthParentCounter) < 0
+        requestingView.nthParentCounter = viewIndex
+
+      console.log "nthParentCounter #{requestingView.nthParentCounter}"
+
+      nthParentView = children[viewIndex - requestingView.nthParentCounter]
+
+      if requestingView.nthParentCounter is 0
+        requestingView.setEditorContent requestingView.cachedContent
+      else
+        requestingView.setEditorContent nthParentView.editorContent()
+
+      requestingView.editor.clearSelection()
 
     replRegion: ->
       @replView = @getReplView()
