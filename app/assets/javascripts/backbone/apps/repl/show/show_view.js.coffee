@@ -20,7 +20,7 @@
       "keydown .input-expression" : "keypress"
 
     isEnterKey: (key) ->
-      key == 13
+      key is 13
 
     updateExpressionResult: ->
       @$('.output-result').text @model.get('expressionResult')
@@ -28,8 +28,14 @@
     editorChanged: (e) =>
       @resizeEditor()
 
+    editorContent: ->
+      @editor.getValue()
+
+    setEditorContent: (content) ->
+      @editor.setValue(content)
+
     keypress: (e) ->
-      @triggerMethod("eval:repl") if @isEnterKey(e.which)
+      @trigger("eval:repl") if @isEnterKey(e.which)
 
     isLastChild: ->
       @$el.is(":last-child")
@@ -41,6 +47,12 @@
       console.log "should be resizing to #{@editorHeight()}"
       $(@editor.container).height(@editorHeight())
       @editor.resize()
+
+    isCursorOnFirstLine: ->
+      @editor.getCursorPosition().row is 0
+
+    insertExpressionHistory: ->
+      @trigger "replace:with:other:expression", 1
 
     configureEditor: (editor) ->
       editor.setTheme("ace/theme/monokai")
@@ -56,7 +68,18 @@
           win: 'Ctrl-R'
           mac: 'Command-R'
         exec: (e) =>
-          @triggerMethod("eval:repl")
+          @trigger("eval:repl")
+
+      editor.commands.addCommand
+        name: 'up'
+        bindKey: 'Up'
+        exec: (editor, args) =>
+          if @isCursorOnFirstLine()
+            @insertExpressionHistory()
+          else
+            editor.navigateUp(args.times)
+
+          console.log "pressed up"
 
       editor.getSession().on 'change', @editorChanged
       window.ed = editor
@@ -75,3 +98,8 @@
     template: "repl/show/templates/_expressions"
     itemView: Show.Expression
     itemViewContainer: "#expressions"
+
+    nthParentView: (view, nth) ->
+      children = @children.toArray()
+      viewIndex = children.indexOf(view)
+      children[viewIndex - nth]

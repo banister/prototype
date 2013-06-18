@@ -12,10 +12,15 @@
     onClose: ->
       console.info "closing Show.Controller!"
 
+    replaceWithNthParentExpression: (requestingView, nth) =>
+      nthParentView = @replView.nthParentView(requestingView, nth)
+      requestingView.setEditorContent nthParentView.editorContent()
+
     replRegion: ->
       @replView = @getReplView()
 
       @listenTo @replView, 'childview:eval:repl', @evalRepl
+      @listenTo @replView, "childview:replace:with:other:expression", @replaceWithNthParentExpression
 
       @layout.replRegion.show(@replView)
 
