@@ -42,10 +42,9 @@
       @layout.replRegion.show(@replView)
 
     evalRepl: (childView) ->
-      editor = childView.editor
       model = childView.model
 
-      model.set expressionContent: editor.getValue()
+      model.set expressionContent: childView.editorContent()
 
       model.tryEvaluate()
       .done =>
