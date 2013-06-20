@@ -49,10 +49,12 @@
 
       model.tryEvaluate()
       .done =>
+        childView.triggerMethod "eval:success"
         if childView.isLastChild()
           @expressionModels.push App.request "new:expression:entity"
 
       .fail (failure) ->
+        childView.triggerMethod "eval:failure"
         console.log failure
 
     getReplView: ->
