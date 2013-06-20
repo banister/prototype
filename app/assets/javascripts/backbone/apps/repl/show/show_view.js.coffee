@@ -13,6 +13,10 @@
     tagName: "li"
     lineHeight: 18
 
+    initialize: ->
+      @nthParentCounter = 0
+      super
+
     ui:
       outputResultArea: ".output-result"
       inputExpressionArea: ".input-expression"
@@ -38,9 +42,26 @@
     setEditorContent: (content) ->
       @editor.setValue(content)
 
+    editorLength: ->
+      @editor.getSession().getLength()
+
+    editorSession: ->
+      @editor.getSession()
+
+    editorDocument: ->
+      @editorSession().getDocument()
+
+    editorLineAt: (lineNum) ->
+      @editorSession().getLine(lineNum)
+
     evalRepl: ->
       @nthParentCounter = 0
       @trigger("eval:repl")
+
+    onEvalSuccess: ->
+      # we remove extraneous new line added after the user has pressed enter
+      if @editorLineAt(@editorLength() - 1) is ""
+        @editorDocument().removeNewLine(@editorLength() - 2)
 
     keypress: (e) ->
       @evalRepl() if @isEnterKey(e.which)
@@ -60,17 +81,11 @@
       @editor.getCursorPosition().row is 0
 
     isCursorOnLastLine: ->
-      @editor.getCursorPosition().row >= (@editor.getSession().getLength() - 1)
+      @editor.getCursorPosition().row >= (@editorLength() - 1)
 
     insertExpressionHistory: (c) ->
-      @nthParentCounter ?= 0
-
       @cachedContent = @editorContent() if @nthParentCounter is 0
-
       @nthParentCounter += c
-
-      console.log("nthParentCounter #{c}")
-
       @trigger "replace:with:other:expression"
 
     configureEditor: (editor) ->
@@ -125,10 +140,3 @@
     template: "repl/show/templates/_expressions"
     itemView: Show.Expression
     itemViewContainer: "#expressions"
-
-    # Given a view, and an integer (nth), return the sibling view that is
-    # nth elements away from that view.
-    nthParentView: (view, nth) ->
-      children = @children.toArray()
-      viewIndex = children.indexOf(view)
-      children[viewIndex - nth]
