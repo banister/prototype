@@ -5,7 +5,7 @@
     initialize: (options)->
       @model = @rootModel = options.rootModel
 
-    template: "module_space/list/templates/modules"
+    template: "module_space/list/modules"
 
     onShow: ->
       dataSource = new kendo.data.HierarchicalDataSource

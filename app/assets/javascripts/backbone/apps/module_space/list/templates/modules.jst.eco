@@ -1,8 +1,4 @@
-<!-- <div id="example" class="k-content"> -->
-
-  <div class="demo-section">
-    <strong>Ruby Modules</strong>
-    <div id="treeview"></div>
-  </div>
-
-<!-- </div> -->
+<div class="demo-section">
+  <strong>Ruby Modules</strong>
+  <div id="treeview"></div>
+</div>

@@ -1,28 +1,28 @@
 @Demo.module "EditorsApp.Show", (Show, App, Backbone, Marionette, $, _) ->
 
-        class Show.Layout extends App.Views.Layout
-                template: "editors/show/templates/show_layout"
+  class Show.Layout extends App.Views.Layout
+    template: "editors/show/show_layout"
 
-                regions:
-                  panelRegion: "#panel-region"
-                  editorRegion: "#editor-region"
+    regions:
+      panelRegion: "#panel-region"
+      editorRegion: "#editor-region"
 
-        class Show.Editor extends App.Views.ItemView
-                template: "editors/show/templates/_editor"
-                className: "pry-large-editor-container"
+  class Show.Editor extends App.Views.ItemView
+    template: "editors/show/_editor"
+    className: "pry-large-editor-container"
 
-                triggers:
-                  "click .editor-header button": "clicked:close"
+    triggers:
+      "click .editor-header button": "clicked:close"
 
-                onClose: ->
-                  @editor?.destroy()
+    onClose: ->
+      @editor?.destroy()
 
-                onShow: ->
-                  domElement = @$(".pry-editor").get(0)
-                  console.log(domElement)
-                  @editor = ace.edit(domElement)
-                  @editor.setTheme("ace/theme/tomorrow_night")
-                  @editor.getSession().setMode("ace/mode/ruby")
+    onShow: ->
+      domElement = @$(".pry-editor").get(0)
+      console.log(domElement)
+      @editor = ace.edit(domElement)
+      @editor.setTheme("ace/theme/tomorrow_night")
+      @editor.getSession().setMode("ace/mode/ruby")
 
-        class Show.Loading extends App.Views.ItemView
-                template: "editors/show/templates/_loading"
+  class Show.Loading extends App.Views.ItemView
+    template: "editors/show/_loading"
