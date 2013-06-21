@@ -50,7 +50,7 @@
       .done =>
         childView.triggerMethod "eval:success"
         if childView.isLastChild()
-          @expressionModels.push App.request "new:expression:entity"
+          @expressionModels.appendEmptyExpression()
 
       .fail (failure) ->
         childView.triggerMethod "eval:failure"

@@ -10,8 +10,8 @@
   class Entities.Expressions extends Entities.Collection
     model: Entities.Expression
 
+    appendEmptyExpression: ->
+      @push new Entities.Expression({ expressionContent: "" })
+
   App.reqres.setHandler "expressions:entity", ->
     new Entities.Expressions([ { expressionContent: "" } ])
-
-  App.reqres.setHandler "new:expression:entity", ->
-    new Entities.Expression({ expressionContent: "" })
