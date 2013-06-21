@@ -139,4 +139,4 @@
   class Show.Expressions extends App.Views.CompositeView
     template: "repl/show/templates/_expressions"
     itemView: Show.Expression
-    itemViewContainer: "#expressions"
+    itemViewContainer: ".expressions"
