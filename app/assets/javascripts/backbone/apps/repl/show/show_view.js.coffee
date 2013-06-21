@@ -54,6 +54,15 @@
     editorLineAt: (lineNum) ->
       @editorSession().getLine(lineNum)
 
+    # ensure the nthparentCounter is valid
+    constrainParentCounter: (viewIndex) ->
+      if @nthParentCounter < 0
+        # ensure does not go 'below' current editor
+        @nthParentCounter = 0
+      else if (viewIndex - @nthParentCounter) < 0
+        # ensure does not go 'above' the first editor
+        @nthParentCounter = viewIndex
+
     evalRepl: ->
       @nthParentCounter = 0
       @trigger("eval:repl")

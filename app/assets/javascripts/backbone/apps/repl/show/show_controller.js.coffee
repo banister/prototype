@@ -15,12 +15,7 @@
     replaceWithNthParentExpression: (requestingView) =>
       children = @replView.children.toArray()
       viewIndex = children.indexOf(requestingView)
-
-      if requestingView.nthParentCounter < 0
-        requestingView.nthParentCounter = 0
-
-      if (viewIndex - requestingView.nthParentCounter) < 0
-        requestingView.nthParentCounter = viewIndex
+      requestingView.constrainParentCounter(viewIndex)
 
       console.log "nthParentCounter #{requestingView.nthParentCounter}"
 
