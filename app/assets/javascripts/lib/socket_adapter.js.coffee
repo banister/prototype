@@ -11,6 +11,7 @@ class @SocketAdapter
   _message_processor: (event) =>
     message = JSON.parse(event.data)
     promise = @promises[message.id]
+    debugger
 
     if promise?
       if message.error?

@@ -20,9 +20,11 @@
     ui:
       outputResultArea: ".output-result"
       inputExpressionArea: ".input-expression"
+      stdoutOutputArea: ".stdout-output"
 
     modelEvents:
       "change:expressionResult" : "updateExpressionResult"
+      "change:stdoutOutput" : "updateStdoutOutput"
 
     events:
       "keydown .input-expression" : "keypress"
@@ -32,6 +34,10 @@
 
     updateExpressionResult: ->
       @ui.outputResultArea.text @model.get('expressionResult')
+
+    updateStdoutOutput: ->
+      @ui.stdoutOutputArea.text @model.get('stdoutOutput')
+
 
     editorChanged: (e) =>
       @resizeEditor()
