@@ -1,0 +1,8 @@
+<ul class="nav nav-list">
+  <li class="nav-header">Variables</li>
+  <% for variable in @instanceVariables: %>
+  <li><a href="#"><%= variable %></a></li>
+  <% end %>
+  <li class="divider"></li>
+  <li><a href="#">Help</a></li>
+</ul>

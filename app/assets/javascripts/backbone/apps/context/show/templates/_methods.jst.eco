@@ -1,0 +1,8 @@
+<ul class="nav nav-list">
+  <li class="nav-header">Methods</li>
+  <% for instance_method in @allMethods.instanceMethods.public: %>
+  <li><a href="#"><%= instance_method %></a></li>
+  <% end %>
+  <li class="divider"></li>
+  <li><a href="#">Help</a></li>
+</ul>

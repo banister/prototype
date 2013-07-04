@@ -11,7 +11,6 @@ class @SocketAdapter
   _message_processor: (event) =>
     message = JSON.parse(event.data)
     promise = @promises[message.id]
-    debugger
 
     if promise?
       if message.error?
@@ -65,7 +64,16 @@ class @SocketAdapter
         type: "replExpression"
         value: expressionModel.get('expressionContent')
 
+  _setupObjectInfoListener: ->
+    @reqres.setHandler "communicator:get:object:info", (infoModel) =>
+      @_buildPromise
+        type: "objectInfo"
+        value:
+          identifier: infoModel.id
+          type: infoModel.get("type")
+
   _setupListeners: ->
     @_setupRubyModulesListener()
     @_setupCodeModelListener()
     @_setupReplListener()
+    @_setupObjectInfoListener()

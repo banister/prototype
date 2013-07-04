@@ -1,0 +1,13 @@
+.context-container {
+  width: 100%;
+  height: 250px;
+  margin-bottom: 10px;
+
+ .context-panel {
+   overflow-x: auto;
+   overflow-y: auto;
+   float: left;
+   height: 100%;
+   width: 200px;
+  }
+ }

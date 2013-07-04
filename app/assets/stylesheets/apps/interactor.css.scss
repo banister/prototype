@@ -1,0 +1,30 @@
+.interactor-container {
+  height: 600px;
+  >.repl-region {
+    float: left;
+    height: 100%;
+  }
+
+  >.editor-region {
+    float: left;
+    margin-left: 10px;
+    height: 100%;
+  }
+}
+
+.blah {
+  background: red;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 100px;
+}
+
+.pry-large-editor-container {
+    /* width: 100%; */
+    /* height: 100%; */
+    margin-right: 80px;
+
+    .pry-editor {
+      height: 100%;
+    }
+}
