@@ -154,3 +154,11 @@
     template: "repl/_expressions"
     itemView: Repl.Expression
     itemViewContainer: ".expressions"
+
+    initialize: (options) ->
+      { @width, @height } = options
+      super
+
+    onShow: ->
+      @$(@itemViewContainer).width @width
+      @$(@itemViewContainer).height @height

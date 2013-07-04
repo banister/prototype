@@ -1,8 +1,9 @@
 @Demo.module "Components.Repl", (Repl, App, Backbone, Marionette, $, _) ->
   class Repl.Controller extends App.Controllers.Base
     initialize: (options) ->
+      { @region, @width, @height }  = options.config
       @contentView = options.view
-      @region = options.config.region
+
       @expressionModels = App.request "expressions:entity"
       @replLayout = @getReplLayoutView()
 
@@ -56,6 +57,8 @@
     getReplView: ->
       new Repl.Expressions
         collection: @expressionModels
+        width: @width
+        height: @height
 
     getReplLayoutView: ->
       new Repl.Layout
