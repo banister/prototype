@@ -4,14 +4,14 @@
       @layout = @getLayoutView()
 
       @listenTo @layout, 'show', =>
-        @setupReplComponent()
+        @replComponent()
 
       @show @layout
 
     onClose: ->
       console.info "closing Show.Controller!"
 
-    setupReplComponent: ->
+    replComponent: ->
       App.request "repl:component", @layout,
         region: @layout.replRegion
 
