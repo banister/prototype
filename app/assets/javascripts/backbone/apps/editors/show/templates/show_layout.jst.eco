@@ -1,2 +1,4 @@
-<div id="panel-region"></div>
-<div id="editor-region"></div>
+<div class="context-region"></div>
+<div class="interactor-container">
+  <div class="repl-region"></div><div class="editor-region"></div>
+</div>
