@@ -1,30 +1,29 @@
 .interactor-container {
+  width: 100%;
   height: 600px;
   >.repl-region {
     float: left;
     height: 100%;
+    width: 50%;
   }
 
+  >.context-region {
+    float: left;
+    width: 50%;
+    height: 50%;
+  }
   >.editor-region {
     float: left;
-    margin-left: 10px;
-    height: 100%;
+    width: 50%;
+    height: 50%;
   }
 }
 
-.blah {
-  background: red;
-  margin-bottom: 10px;
-  width: 100%;
-  height: 100px;
-}
-
-.pry-large-editor-container {
-    /* width: 100%; */
-    /* height: 100%; */
-    margin-right: 80px;
-
-    .pry-editor {
+ .pry-large-editor-container {
+      width: 100%;
       height: 100%;
-    }
-}
+
+     .pry-editor {
+       height: 100%;
+     }
+ }

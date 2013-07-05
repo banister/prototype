@@ -1,3 +1,12 @@
 html,body { height: 100%; }
 
+#sidebar-region {
+/*  float: left; */
+  height: 800px;
+  overflow-y: scroll;
+}
+
+#main-region {
+/*  float: left; */
+}
 #wrap { height: auto !important; margin: 0 auto -60px; min-height: 100% }

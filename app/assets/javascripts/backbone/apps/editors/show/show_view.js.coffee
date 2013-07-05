@@ -23,7 +23,7 @@
       @editor?.destroy()
 
     onShow: ->
-      @$el.width @width
+       # @$el.width @width
       @$el.height @height
 
       domElement = @$(".pry-editor").get(0)

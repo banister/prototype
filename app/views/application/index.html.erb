@@ -1,15 +1,11 @@
 <div id="wrap">
   <div id="header-region"></div>
-
   <div class="container-fluid">
     <div class="row-fluid">
-      <div class="span2">
-        <div class="well sidebar-nav sidebar-nav-custom">
-          <div id="sidebar-region"></div>
-        </div>
+      <div class="span1">
+        <div id="sidebar-region"></div>
       </div>
-
-      <div class="span10">
+      <div class="span11">
         <div id="main-region"></div>
       </div>
     </div>
@@ -23,9 +19,9 @@
 <div id="footer-region"></div>
 
 <%= javascript_tag do %>
-  $(function() {
-    Demo.start({
-      currentUser: gon.current_user
-    });
-  });
+$(function() {
+Demo.start({
+currentUser: gon.current_user
+});
+});
 <% end %>

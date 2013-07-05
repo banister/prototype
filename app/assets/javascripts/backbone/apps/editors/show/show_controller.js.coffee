@@ -23,7 +23,7 @@
     replComponent: ->
       App.request "repl:component", @layout,
         region: @layout.replRegion
-        width: @width
+        # width: @width
         height: @height
 
     contextRegion: (id)->

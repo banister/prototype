@@ -1,29 +1,33 @@
-.expressions {
-  background: #272822;
-  list-style-type: none;
-  overflow-y: scroll;
-  .expression-container {
-    width: 100%;
-    margin-right: 80px;
+.repl-region {
+  height: 100%;
 
-    .input-expression {
-      height: 21px;
+  .expressions {
+    background: #272822;
+    list-style-type: none;
+    overflow-y: scroll;
+    height: 100%;
+    .expression-container {
+      width: 100%;
+      margin-right: 80px;
 
-      &:hover {
-        outline: solid;
-        outline-color: #FF4500;
-        outline-style: dotted;
+      .input-expression {
+        height: 21px;
+
+        &:hover {
+          outline: solid;
+          outline-color: #FF4500;
+          outline-style: dotted;
+        }
+      }
+
+      .output-result {
+        margin: 20px 0;
+        color: yellow;
+      }
+      .stdout-output {
+        margin: 20px 0;
+        color: green;
       }
     }
-
-    .output-result {
-      margin: 20px 0;
-      color: yellow;
-    }
-    .stdout-output {
-      margin: 20px 0;
-      color: green;
-    }
-
   }
 }

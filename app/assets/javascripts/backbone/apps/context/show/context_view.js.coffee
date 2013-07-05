@@ -2,6 +2,7 @@
 
   class Show.Layout extends App.Views.Layout
     template: "context/show/show_layout"
+    className: "context-container"
 
     regions:
       methodsRegion: ".methods-region"
