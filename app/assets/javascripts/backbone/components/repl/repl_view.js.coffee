@@ -38,7 +38,6 @@
     updateStdoutOutput: ->
       @ui.stdoutOutputArea.text @model.get('stdoutOutput')
 
-
     editorChanged: (e) =>
       @resizeEditor()
 
@@ -155,6 +154,9 @@
     itemView: Repl.Expression
     itemViewContainer: ".expressions"
 
+    ui:
+      container: ".expressions"
+
     initialize: (options) ->
       { @width, @height } = options
       super
@@ -162,3 +164,8 @@
     onShow: ->
       @$(@itemViewContainer).width @width
       @$(@itemViewContainer).height @height
+
+    appendHtml: (cv, iv) ->
+      super
+      _.defer =>
+        @ui.container.scrollTop(@ui.container[0].scrollHeight)
