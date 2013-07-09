@@ -152,18 +152,22 @@
   class Repl.Expressions extends App.Views.CompositeView
     template: "repl/_expressions"
     itemView: Repl.Expression
-    itemViewContainer: ".expressions"
+
+    # Name of the container for item views
+    container = ".expressions"
+
+    itemViewContainer: container
 
     ui:
-      container: ".expressions"
+      container: container
 
     initialize: (options) ->
       { @width, @height } = options
       super
 
     onShow: ->
-      @$(@itemViewContainer).width @width
-      @$(@itemViewContainer).height @height
+      @ui.container.width @width
+      @ui.container.height @height
 
     appendHtml: (cv, iv) ->
       super
