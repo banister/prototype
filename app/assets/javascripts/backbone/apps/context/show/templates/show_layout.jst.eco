@@ -5,3 +5,5 @@
 <div class="context-panel">
   <div class="variables-region"></div>
 </div>
+
+<div class="dialog-region"></div>
