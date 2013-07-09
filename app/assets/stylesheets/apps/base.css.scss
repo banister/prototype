@@ -1,12 +1,25 @@
 html,body { height: 100%; }
 
+#wrap { height: auto !important; margin: 0 auto -60px; min-height: 100% }
+
 #sidebar-region {
-/*  float: left; */
+  float: left;
   height: 800px;
+  width: 8%;
   overflow-y: scroll;
 }
 
-#main-region {
-/*  float: left; */
+ul {
+  padding: 0;
+  margin: 0;
+
+    li{
+      padding: 0;
+      margin: 0;
+     }
 }
-#wrap { height: auto !important; margin: 0 auto -60px; min-height: 100% }
+
+#main-region {
+  float: left;
+  width: 90%;
+}
