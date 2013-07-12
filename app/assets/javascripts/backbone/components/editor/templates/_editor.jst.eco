@@ -1,0 +1,10 @@
+<div class="editor-header">
+  <div class="btn-group">
+    <button class="btn btn-mini btn-danger" data-button-type="close">X</button>
+    <button class="btn btn-mini btn-primary" data-button-type="expand">O</button>
+    <button class="btn btn-mini btn-success" data-button-type="apply">A</button>
+    <button class="btn btn-mini btn-warning" data-button-type="save">S</button>
+  </div>
+<small><%= @fullName %></small>
+</div>
+<div class="pry-editor"><%= @code %></div>

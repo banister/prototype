@@ -23,13 +23,13 @@
         view.model.set code: view.editor.getValue()
         App.execute "editors:expand:editor", view.model
 
-      @listenTo editorsView, "childview:clicked:save", @exportEditorContentToFile
+      # @listenTo editorsView, "childview:clicked:save", @exportEditorContentToFile
 
-      @listenTo editorsView, "childview:clicked:apply", @applyEditorContentToCodeModel
+      # @listenTo editorsView, "childview:clicked:apply", @applyEditorContentToCodeModel
 
-      @listenTo editorsView, "childview:gridster:remove:widget", (view) ->
-        console.log "trying to remove widget from gridster"
-        $(@itemViewContainer).data("gridster").remove_widget(view.$el)
+      # @listenTo editorsView, "childview:gridster:remove:widget", (view) ->
+      #   console.log "trying to remove widget from gridster"
+      #   $(@itemViewContainer).data("gridster").remove_widget(view.$el)
 
       @layout.editorsRegion.show(editorsView)
 
