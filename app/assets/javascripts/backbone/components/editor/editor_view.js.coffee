@@ -11,6 +11,18 @@
     template: "editor/_editor"
     className: "pry-editor-container"
     tagName: "li"
+
+    initialize: (options) ->
+      super
+      { config } = options
+
+      @theme = "ace/theme/#{config.theme ? 'tomorrow_night'}"
+
+      # if config.theme?
+      #   "ace/theme/#{config.theme}"
+      # else
+      #   "ace/theme/tomorrow_night"
+
     attributes:
       "data-row": "1"
       "data-col": "1"
@@ -24,10 +36,13 @@
       "click .editor-header button[data-button-type='save']" : "clicked:save"
 
     onClose: ->
-      console.log "closing editor"
+      console.log "closing editor #{@cid}"
+      @triggerMethod("closing:baby")
       @editor?.destroy()
 
     onBeforeClose: =>
+      console.log "closing up in this bitch"
+      @triggerMethod("fuck")
       App.vent.trigger("gridster:remove:widget", @)
       # @triggerMethod("gridster:remove:widget", @)
       # @stopListening()
@@ -51,7 +66,7 @@
       console.log(domElement)
       @editor = ace.edit(domElement)
       window.editor = @editor
-      @editor.setTheme("ace/theme/tomorrow_night")
+      @editor.setTheme(@theme)
       @editor.getSession().setMode("ace/mode/ruby")
 
       @editor.on "guttermousedown", (e) =>

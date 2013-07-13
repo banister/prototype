@@ -2,13 +2,16 @@
 
   class Editor.Controller extends App.Controllers.Base
     initialize: (options) ->
-      { @region, @width, @height, id, pureView, model }  = options.config
+      { @region, @width, @height, id, pureView, model, theme }  = options.config
+
+      editorOptions =
+        theme: theme
 
       if model?
-        @editorView = @setupEditorView(model)
+        @editorView = @setupEditorView(model, editorOptions)
       else
         model = App.request "code:model:entity", id
-        model.fetch().done => @setupEditorView(model)
+        model.fetch().done => @setupEditorView(model, editorOptions)
 
       if pureView?
         @listenTo @editorView, 'close', @close
@@ -28,8 +31,8 @@
     onClose: ->
       console.info "closing Editor.Controller!"
 
-    setupEditorView: (codeModel) ->
-      editorView = @getEditorView(codeModel)
+    setupEditorView: (codeModel, editorOptions) ->
+      editorView = @getEditorView(codeModel, editorOptions)
 
       @listenTo editorView, "childview:clicked:save", @exportEditorContentToFile
       @listenTo editorView, "childview:clicked:apply", @applyEditorContentToCodeModel
@@ -66,9 +69,10 @@
         errorLineOffset = view.model.get('nesting').length + 1
         view.addTemporaryErrorMarker(res.error[2] - errorLineOffset)
 
-    getEditorView: (model) ->
+    getEditorView: (model, editorOptions) ->
       new Editor.Editor
         model: model
+        config: editorOptions
 
   App.reqres.setHandler "editor:component", (options={}) ->
     editorController = new Editor.Controller
