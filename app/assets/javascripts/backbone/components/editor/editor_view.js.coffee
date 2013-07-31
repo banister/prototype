@@ -9,25 +9,13 @@
 
   class Editor.Editor extends App.Views.ItemView
     template: "editor/_editor"
-    className: "pry-editor-container"
-    tagName: "li"
+    className: "pry-large-editor-container"
 
     initialize: (options) ->
       super
       { config } = options
 
       @theme = "ace/theme/#{config.theme ? 'tomorrow_night'}"
-
-      # if config.theme?
-      #   "ace/theme/#{config.theme}"
-      # else
-      #   "ace/theme/tomorrow_night"
-
-    attributes:
-      "data-row": "1"
-      "data-col": "1"
-      "data-sizex": "1"
-      "data-sizey": "1"
 
     triggers:
       "click .editor-header button[data-button-type='close']": "clicked:close"
@@ -41,9 +29,10 @@
       @editor?.destroy()
 
     onBeforeClose: =>
-      console.log "closing up in this bitch"
-      @triggerMethod("fuck")
-      App.vent.trigger("gridster:remove:widget", @)
+      console.log "xxx pig"
+      # console.log "closing up in this bitch"
+      # @triggerMethod("fuck")
+      # App.vent.trigger("gridster:remove:widget", @)
       # @triggerMethod("gridster:remove:widget", @)
       # @stopListening()
 
@@ -86,40 +75,3 @@
         row = e.getDocumentPosition().row
         e.editor.session.setBreakpoint(row)
         e.stop()
-
-  class Editor.Empty extends App.Views.ItemView
-    template: "editor/_empty"
-    className: "pry-editor-container"
-    tagName: "li"
-
-  class Editor.Loading extends App.Views.ItemView
-    template: "editor/_loading"
-
-  class Editor.Editors extends App.Views.CompositeView
-    template: "editor/_editors"
-    itemView: Editor.Editor
-    # emptyView: Editor.Empty
-    itemViewContainer: "#editors"
-
-    initialize: ->
-      unless App.vent._events["gridster:remove:widget"]?
-        App.vent.on "gridster:remove:widget", (e)=>
-          console.log "blergh"
-          $(@itemViewContainer).data("gridster").remove_widget(e.$el)
-          e.$el.remove()
-
-    appendHtml: (cv, iv)->
-      $(cv.itemViewContainer).data('gridster')?.add_widget(iv.el, 1, 1)
-
-    onShow: ->
-      $(@itemViewContainer).gridster
-        widget_margins: [10, 10]
-        draggable:
-          handle: ".editor-header, .editor-header > small"
-
-        widget_base_dimensions: [450, 300]
-        autogenerate_stylesheet: true
-
-      if @children.length > 0
-        for name, view of @children._views
-          @appendHtml(@, view)
