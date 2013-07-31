@@ -16,7 +16,15 @@
       collection = App.EditorsApp.EditorModels
       editorsView = @getEditorsView(collection)
 
-      @listenTo editorsView, "childview:clicked:close", (view) ->
+      @listenTo editorsView, "childview:clicked:close", (view) =>
+
+        # we remove the widget first before running
+        # "remove:code:model", if  we do it the other
+        # way round then the remove_widget method complains that there
+        # is no widget to remove (as the html has already been
+        # removed). "editors:remove:code:model" on the other hand,
+        # doesn't seem to mind if the html has already been removed.
+        $(editorsView.itemViewContainer).data("gridster").remove_widget view.$el
         App.execute "editors:remove:code:model", view.model
 
       @listenTo editorsView, "childview:clicked:expand", (view) ->
