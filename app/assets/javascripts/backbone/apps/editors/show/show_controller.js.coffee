@@ -32,11 +32,13 @@
         id: id
 
     editorsRegion: (id) ->
-      editorView = @getEditorView(@model)
+      editorView = App.request "editor:component",
+         model: @model
+         theme: "tomorrow"
+         region: @layout.editorRegion
+
       @listenTo editorView, "clicked:close", (e) ->
         App.execute "editors:list"
-
-      @layout.editorRegion.show(editorView)
 
     getEditorView: ->
       new Show.Editor
